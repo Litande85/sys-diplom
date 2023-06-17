@@ -164,7 +164,9 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 Метрики в Grafana
 
-### <a href = "http://51.250.38.227:3000/d/rYdddlPWk/node-exporter-full?orgId=1" target="_blank">http://51.250.38.227:3000/d/rYdddlPWk/node-exporter-full?orgId=1</a>
+### <a href = "http://51.250.38.227:3000" target="_blank">http://51.250.38.227:3000</a>
+
+Логин admin, пароль admin.
 
 
 ### Логи
