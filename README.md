@@ -228,6 +228,8 @@ web-1                      : ok=7    changed=6    unreachable=0    failed=0    s
 web-2                      : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
 
+![nginxlog-exporter](img/nginxlog-exporter.png)
+
 ## *Установка grafana*
 
 ansible-playbook grafana.yml [grafana.yml](ansible/grafana.yml)
