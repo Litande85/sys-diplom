@@ -1,0 +1,24 @@
+- name: Play grafana
+  hosts: grafana
+  become: yes
+  tasks:
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /home/user/prometheus
+        state: directory
+        mode: '0777'
+
+    - name: Copy dir
+      ansible.builtin.copy:
+        src: /home/user/ansible/files_prometheus/
+        dest: /home/user/prometheus/
+        mode: '0777'
+
+    - name: Install grafana
+      ansible.builtin.shell: chmod +x /home/user/prometheus/grafana.sh && sudo /home/user/prometheus/grafana.sh
+      register: result
+
+    - name: Print stdout
+      debug:
+        var: result.stdout

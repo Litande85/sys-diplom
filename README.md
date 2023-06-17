@@ -1,5 +1,8 @@
 #  Дипломная работа по профессии «Системный администратор» - `Елена Махота`
 
+
+### ПРОШУ ДАТЬ ВРЕМЯ ДЛЯ ДОРАБОТКИ
+
 Содержание
 ==========
 * [Задача](#Задача)
@@ -23,7 +26,7 @@
     Внутренняя подсеть для сайта 1
     Внутренняя подсеть для сайта 2
     Внутренняя подсеть для сервисов
-    Публичная подсеть bastion host
+    Публичная подсеть bastion host, Grafana, Kibana
 
 ## *[Группы](terraform/groups.tf)*
 
@@ -47,7 +50,7 @@
 
 
 ### Сайт
-Создайно две ВМ в разных зонах посредством [Terraform](terraform):[web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf)
+Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf)
 
     web-1 10.1.0.10 ru-central1-a
     web-2 10.2.0.10 ru-central1-b
@@ -69,23 +72,120 @@
 
 
 ### Мониторинг
-Создайте ВМ, разверните на ней Prometheus. На каждую ВМ из веб-серверов установите Node Exporter и [Nginx Log Exporter](https://github.com/martin-helmich/prometheus-nginxlog-exporter). Настройте Prometheus на сбор метрик с этих exporter.
 
-Создайте ВМ, установите туда Grafana. Настройте её на взаимодействие с ранее развернутым Prometheus. Настройте дешборды с отображением метрик, минимальный набор — Utilization, Saturation, Errors для CPU, RAM, диски, сеть, http_response_count_total, http_response_size_bytes. Добавьте необходимые [tresholds](https://grafana.com/docs/grafana/latest/panels/thresholds/) на соответствующие графики.
+## *Установка prometheus*
+
+ansible-playbook prometheus.yml [prometheus.yml](ansible/prometheus.yml)
+
+```bash
+PLAY [Play prometheus] ************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [prometheus]
+
+TASK [Create a directory if it does not exist] ************************************************************************
+changed: [prometheus]
+
+TASK [Copy dir] *******************************************************************************************************
+changed: [prometheus]
+
+TASK [Install prometheus] *********************************************************************************************
+changed: [prometheus]
+
+PLAY RECAP ************************************************************************************************************
+prometheus                 : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
+## *Установка node-exporter*
+
+ansible-playbook node-exporter.yml [node-exporter.yml](ansible/node-exporter.yml)
+
+```bash
+PLAY [Play node-exporter] *********************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Create a directory if it does not exist] ************************************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [Copy dir] *******************************************************************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [Install node-exporter] ******************************************************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [Print stdout] ***************************************************************************************************
+ok: [web-1] => {
+    "result.stdout": "node_exporter-1.4.0.linux-amd64/\nnode_exporter-1.4.0.linux-amd64/LICENSE\nnode_exporter-1.4.0.linux-amd64/NOTICE\nnode_exporter-1.4.0.linux-amd64/node_exporter"
+}
+ok: [web-2] => {
+    "result.stdout": "node_exporter-1.4.0.linux-amd64/\nnode_exporter-1.4.0.linux-amd64/LICENSE\nnode_exporter-1.4.0.linux-amd64/NOTICE\nnode_exporter-1.4.0.linux-amd64/node_exporter"
+}
+
+PLAY RECAP ************************************************************************************************************
+web-1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web-2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+
+## *Установка grafana*
+
+ansible-playbook grafana.yml [grafana.yml](ansible/grafana.yml)
+
+```bash
+PLAY [Play grafana] ***************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [grafana]
+
+TASK [Create a directory if it does not exist] ************************************************************************
+changed: [grafana]
+
+TASK [Copy dir] *******************************************************************************************************
+changed: [grafana]
+
+TASK [Install grafana] ************************************************************************************************
+changed: [grafana]
+
+TASK [Print stdout] ***************************************************************************************************
+ok: [grafana] => {
+    "result.stdout": "Selecting previously unselected package grafana.\n(Reading database ... 29591 files and directories currently installed.)\nPreparing to unpack grafana_9.2.4_amd64.deb ...\nUnpacking grafana (9.2.4) ...\nReading package lists...\nBuilding dependency tree...\nReading state information...\nThe following NEW packages will be installed:\n  fontconfig-config fonts-dejavu-core libfontconfig1\n0 upgraded, 3 newly installed, 0 to remove and 1 not upgraded.\n1 not fully installed or removed.\nNeed to get 1,697 kB of archives.\nAfter this operation, 4,016 kB of additional disk space will be used.\nGet:1 http://mirror.yandex.ru/debian bullseye/main amd64 fonts-dejavu-core all 2.37-2 [1,069 kB]\nGet:2 http://mirror.yandex.ru/debian bullseye/main amd64 fontconfig-config all 2.13.1-4.2 [281 kB]\nGet:3 http://mirror.yandex.ru/debian bullseye/main amd64 libfontconfig1 amd64 2.13.1-4.2 [347 kB]\nPreconfiguring packages ...\nFetched 1,697 kB in 0s (9,480 kB/s)\nSelecting previously unselected package fonts-dejavu-core.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 36822 files and directories currently installed.)\r\nPreparing to unpack .../fonts-dejavu-core_2.37-2_all.deb ...\r\nUnpacking fonts-dejavu-core (2.37-2) ...\r\nSelecting previously unselected package fontconfig-config.\r\nPreparing to unpack .../fontconfig-config_2.13.1-4.2_all.deb ...\r\nUnpacking fontconfig-config (2.13.1-4.2) ...\r\nSelecting previously unselected package libfontconfig1:amd64.\r\nPreparing to unpack .../libfontconfig1_2.13.1-4.2_amd64.deb ...\r\nUnpacking libfontconfig1:amd64 (2.13.1-4.2) ...\r\nSetting up fonts-dejavu-core (2.37-2) ...\r\nSetting up fontconfig-config (2.13.1-4.2) ...\r\nSetting up libfontconfig1:amd64 (2.13.1-4.2) ...\r\nSetting up grafana (9.2.4) ...\r\nAdding system user `grafana' (UID 108) ...\r\nAdding new user `grafana' (UID 108) with group `grafana' ...\r\nNot creating home directory `/usr/share/grafana'.\r\n### NOT starting on installation, please execute the following statements to configure grafana to start automatically using systemd\r\n sudo /bin/systemctl daemon-reload\r\n sudo /bin/systemctl enable grafana-server\r\n### You can start grafana-server by executing\r\n sudo /bin/systemctl start grafana-server\r\nProcessing triggers for libc-bin (2.31-13+deb11u5) ..."
+}
+
+PLAY RECAP ************************************************************************************************************
+grafana                    : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
+
+Метрики в Grafana
+
+### <a href = "http://51.250.38.227:3000/d/rYdddlPWk/node-exporter-full?orgId=1" target="_blank">http://51.250.38.227:3000/d/rYdddlPWk/node-exporter-full?orgId=1</a>
+
 
 ### Логи
-Cоздайте ВМ, разверните на ней Elasticsearch. Установите filebeat в ВМ к веб-серверам, настройте на отправку access.log, error.log nginx в Elasticsearch.
 
-Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
+В разработке.
 
 ### Сеть
-Разверните один VPC. Сервера web, Prometheus, Elasticsearch поместите в приватные подсети. Сервера Grafana, Kibana, application load balancer определите в публичную подсеть.
+Развернута VPC.
 
-Настройте [Security Groups](https://cloud.yandex.com/docs/vpc/concepts/security-groups) соответствующих сервисов на входящий трафик только к нужным портам.
+Сервера web, Prometheus, Elasticsearch помещены в приватные подсети. 
 
-Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh. Настройте все security groups на разрешение входящего ssh из этой security group. Эта вм будет реализовывать концепцию bastion host. Потом можно будет подключаться по ssh ко всем хостам через этот хост.
+Сервера Grafana, Kibana, application load balancer определены в публичную подсеть.
 
-Доступ через бастион:
+Настроена [Security Groups](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
+
+Настроена ВМ с публичным адресом, в которой  открыт только один порт — ssh. 
+Настроены все security groups на разрешение входящего ssh из этой security group. 
+Эта вм  реализует концепцию bastion host. 
+Можно  подключаться по ssh ко всем хостам через этот хост.
+
+Пример - доступ через бастион к web-1:
 
 ```bash
 ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10

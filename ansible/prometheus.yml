@@ -1,0 +1,24 @@
+- name: Play prometheus
+  hosts: prometheus
+  become: yes
+  tasks:
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /home/user/prometheus
+        state: directory
+        mode: '0777'
+
+    - name: Copy dir
+      ansible.builtin.copy:
+        src: /home/user/ansible/files_prometheus/
+        dest: /home/user/prometheus/
+        mode: '0777'
+
+    - name: Install prometheus
+      ansible.builtin.shell: chmod +x /home/user/prometheus/prometheus.sh && sudo /home/user/prometheus/prometheus.sh
+      register: result
+
+    - name: Print stdout
+      debug:
+        var: result.stdout
