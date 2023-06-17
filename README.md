@@ -40,7 +40,11 @@
 [web-2](terraform/web-2.tf) |
 [bastion](terraform/bastion.tf) |
 [load-balancer](terraform/load-balancer.tf) |
-[router](terraform/router.tf)
+[router](terraform/router.tf) |
+[prometheus](terraform/prometheus.tf) |
+[grafana](terraform/grafana.tf)
+[elasticsearch](terraform/elasticsearch.tf) |
+[kibana](terraform/kibana.tf)
 
 
 ![vms_list](img/vms_list.png)
