@@ -33,10 +33,10 @@
 
 ## *Инстансы*
 
-[web-1](/terraform/web-1.tf)
-[web-2](terraform/web-2.tf)
-[bastion](terraform/bastion.tf)
-[load-balancer](terraform/load-balancer.tf)
+[web-1](/terraform/web-1.tf) |
+[web-2](terraform/web-2.tf) |
+[bastion](terraform/bastion.tf) |
+[load-balancer](terraform/load-ba lancer.tf) |
 [router](terraform/router.tf)
 
 
