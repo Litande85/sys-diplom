@@ -219,6 +219,14 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 ## *Метрики в Grafana*
 
+Добавление Dashboard в Grafana
+В разделе Configuration > Data Sources > Add data sourcе
+В появившемся списке > Prometheus > Save & Test
+На сайте grafana.com найден нужный Dashboard [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full/) и скопирован его ID - 1860.
+В поле Import via grafana.com  внесен скопированный ID 1860.
+В выпадающем списке VictoriaMetrics выбран Prometheus > кнопка Import.
+
+Метрики доступны по публичному IP сервера grafana:
 ### <a href = "http://51.250.38.227:3000" target="_blank">http://51.250.38.227:3000</a>
 
 Логин `admin`, пароль `admin`.
@@ -293,3 +301,4 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 * <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
 * <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
 * <a href = "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html" target="_blank">Модули Ansible</a>
+* <a href = "https://netology.ru/profile/program/srlb-14/lessons/223119/lesson_items/1207431" target="_blank">Презентация Нетологии Prometheus</a>
