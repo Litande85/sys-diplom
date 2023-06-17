@@ -64,6 +64,42 @@
 На них установлен сервер nginx посредством playbook ansible [web.yml](ansible/web.yml) в docker контейнере. 
 ОС и содержимое ВМ идентично, это веб-сервера.
 
+```bash
+PLAY [Play nginx] *****************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Install reqs for Docker] ****************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Install the Docker module for Python] ***************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Create a directory /home/user/html if it does not exist] ********************************************************
+ok: [web-1]
+ok: [web-2]
+
+TASK [Create a directory /var/log/nginx if it does not exist] *********************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [Copy index.html] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Create container] ***********************************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+PLAY RECAP ************************************************************************************************************
+web-1                      : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web-2                      : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
 Использован  статичный файл для сайта [index.html](ansible/index.html)
 
 Созданы [Target Group, Backend Group](terraform/groups.tf).
@@ -217,6 +253,7 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 
 ![gateway](<img/gate 2023-06-18 002628.png>)
 
+
 ### Резервное копирование
 Созданы snapshot дисков всех ВМ посредством `terraform` [snapshot.tf](terraform/snapshot.tf). 
 Настроено ежедневное копирование.
@@ -248,7 +285,5 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 * <a href = "https://cloud.yandex.ru/docs/tutorials/routing/bastion" target="_blank">Создание бастиона</a>
 * <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/application-load-balancer-create" target="_blank">Создание L7-балансировщика</a>
 * <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
-
 * <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
-
 * <a href = "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html" target="_blank">Модули Ansible</a>
