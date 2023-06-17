@@ -100,6 +100,10 @@ web-1                      : ok=7    changed=2    unreachable=0    failed=0    s
 web-2                      : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
+![web1](img/nginx11.png)
+
+![web2](img/nginx1.png)
+
 Использован  статичный файл для сайта [index.html](ansible/index.html)
 
 Созданы [Target Group, Backend Group](terraform/groups.tf).
