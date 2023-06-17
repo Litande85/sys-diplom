@@ -25,44 +25,23 @@
     Внутренняя подсеть для сервисов
     Публичная подсеть bastion host
 
-Документация Yandex Cloud по сетям и подсетям:
-
-* <a href = "https://cloud.yandex.ru/docs/vpc/operations/network-create" target="_blank">Создание сети</a>
-* <a href = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create" target="_blank">Создание подсети</a>
-* <a href = "https://cloud.yandex.ru/docs/vpc/operations/create-nat-gateway">Настройка Nat-шлюза</a>
-* <a href = "https://cloud.yandex.ru/docs/vpc/operations/static-route-create">Статический маршрут</a>
-
-
-
 ## *[Группы](terraform/groups.tf)*
 
     Target Group
     Backend Group
     Security Groups
 
-Документация Yandex Cloud по Группам:
-
-* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/target-group-create" target="_blank">Создать целевую группу Target Group для балансировщика</a>
-* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/backend-group-create" target="_blank">Создать группу бэкендов Backend Group</a>
-* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/vpc/operations/security-group-create.md" target="_blank">Создание Группы безопасности</a>
-* <a href = "https://cloud.yandex.ru/docs/vpc/concepts/security-groups" target="_blank">Группы безопасности</a>
-* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/managed-kubernetes/operations/connect/security-groups.md" target="_blank">Настройка групп безопасности</a>
-
 ## *Инстансы*
 
-    [web-1](terraform/web-1.tf)
-    [web-2](terraform/web-2.tf)
-    [bastion](terraform/bastion.tf)
-    [load-balancer](terraform/load-balancer.tf)
-    [router](terraform/router.tf)
-
-Использованные источники:
-* <a href = "https://cloud.yandex.ru/docs/cos/tutorials/coi-with-terraform" target="_blank">Создание VM с docker контенером</a>
-* <a href = "https://dev.to/domysee/setting-up-a-reverse-proxy-with-nginx-and-docker-compose-29jg" target="_blank">Настройка nginx и docker-compose</a>
-* <a href = "https://cloud.yandex.ru/docs/tutorials/routing/bastion" target="_blank">Создание бастиона</a>
-* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/application-load-balancer-create" target="_blank">Создание L7-балансировщика</a>
-* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
-
+  [web-1](/terraform/web-2.tf)
+  
+  [web-2](terraform/web-2.tf)
+    
+  [bastion](terraform/bastion.tf)
+    
+  [load-balancer](terraform/load-balancer.tf)
+    
+  [router](terraform/router.tf)
 
 
 
@@ -71,32 +50,27 @@
 Для установки сервисов использован [Ansible](ansible).
 
 
-Использованная литература:
-
-* <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
-
-
 ### Сайт
-Создайно две ВМ в разных зонах посредством [Terraform](terraform)
+Создайно две ВМ в разных зонах посредством [Terraform](terraform):[web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf)
 
     web-1 10.1.0.10 ru-central1-a
     web-2 10.2.0.10 ru-central1-b
 
-,  на них установлен сервер nginx. 
-ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
+На них установлен сервер nginx посредством playbook ansible [web.yml](ansible/web.yml) в docker контейнере. 
+ОС и содержимое ВМ идентично, это веб-сервера.
 
-Используйте набор статичных файлов для сайта. Можно переиспользовать сайт из домашнего задания.
+Использован  статичный файл для сайта [index.html](ansible/index.html)
 
-Создайте [Target Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/target-group), включите в неё две созданных ВМ.
+Созданы [Target Group, Backend Group](terraform/groups.tf).
 
-Создайте [Backend Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/backend-group), настройте backends на target group, ранее созданную. Настройте healthcheck на корень (/) и порт 80, протокол HTTP.
+Создан [HTTP router](terraform/router.tf).
 
-Создайте [HTTP router](https://cloud.yandex.com/docs/application-load-balancer/concepts/http-router). Путь укажите — /, backend group — созданную ранее.
+Создан [Application load balancer](terraform/load-balancer.tf).
 
-Создайте [Application load balancer](https://cloud.yandex.com/en/docs/application-load-balancer/) для распределения трафика на веб-сервера, созданные ранее. Укажите HTTP router, созданный ранее, задайте listener тип auto, порт 80.
+Сайт открывается с публичного IP балансера
 
-Протестируйте сайт
-`curl -v <публичный IP балансера>:80` 
+### <a href = "http://158.160.42.86/" target="_blank">http://158.160.42.86/</a>
+
 
 ### Мониторинг
 Создайте ВМ, разверните на ней Prometheus. На каждую ВМ из веб-серверов установите Node Exporter и [Nginx Log Exporter](https://github.com/martin-helmich/prometheus-nginxlog-exporter). Настройте Prometheus на сбор метрик с этих exporter.
@@ -115,6 +89,39 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh. Настройте все security groups на разрешение входящего ssh из этой security group. Эта вм будет реализовывать концепцию bastion host. Потом можно будет подключаться по ssh ко всем хостам через этот хост.
 
+Доступ через бастион:
+
+```bash
+ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
+
+```
+
 ### Резервное копирование
 Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
 
+### Использованные источники
+Документация Yandex Cloud по сетям и подсетям:
+
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/network-create" target="_blank">Создание сети</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create" target="_blank">Создание подсети</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/create-nat-gateway">Настройка Nat-шлюза</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/static-route-create">Статический маршрут</a>
+
+
+Документация Yandex Cloud по Группам:
+
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/target-group-create" target="_blank">Создать целевую группу Target Group для балансировщика</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/backend-group-create" target="_blank">Создать группу бэкендов Backend Group</a>
+* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/vpc/operations/security-group-create.md" target="_blank">Создание Группы безопасности</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/concepts/security-groups" target="_blank">Группы безопасности</a>
+* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/managed-kubernetes/operations/connect/security-groups.md" target="_blank">Настройка групп безопасности</a>
+
+Прочие:
+
+* <a href = "https://cloud.yandex.ru/docs/cos/tutorials/coi-with-terraform" target="_blank">Создание VM с docker контенером</a>
+* <a href = "https://dev.to/domysee/setting-up-a-reverse-proxy-with-nginx-and-docker-compose-29jg" target="_blank">Настройка nginx и docker-compose</a>
+* <a href = "https://cloud.yandex.ru/docs/tutorials/routing/bastion" target="_blank">Создание бастиона</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/application-load-balancer-create" target="_blank">Создание L7-балансировщика</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
+
+* <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
