@@ -179,7 +179,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 ### <a href = "http://51.250.38.227:3000" target="_blank">http://51.250.38.227:3000</a>
 
-Логин `admin`, пароль `admin`.`
+Логин `admin`, пароль `admin`.
 
 ![grafana](img/grafana.png)
 
