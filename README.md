@@ -43,6 +43,8 @@
 [router](terraform/router.tf)
 
 
+![vms_list](img/vms_list.png)
+
 
 Для развёртки инфраструктуры использован [Terraform](terraform). 
 
@@ -62,14 +64,21 @@
 
 Созданы [Target Group, Backend Group](terraform/groups.tf).
 
+![tg-group](img/tg-group.png)
+
+![backend-group](img/backend-group.png)
+
 Создан [HTTP router](terraform/router.tf).
 
 Создан [Application load balancer](terraform/load-balancer.tf).
+
+![load-balancer](img/load-balancer.png)
 
 Сайт открывается с публичного IP балансера
 
 ### <a href = "http://158.160.42.86/" target="_blank">http://158.160.42.86/</a>
 
+![web](<img/web 2023-06-18 001320.png>)
 
 ### Мониторинг
 
@@ -162,12 +171,13 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 ```
 
 
-Метрики в Grafana
+## *Метрики в Grafana*
 
 ### <a href = "http://51.250.38.227:3000" target="_blank">http://51.250.38.227:3000</a>
 
-Логин admin, пароль admin.
+Логин `admin`, пароль `admin`.`
 
+![grafana](img/grafana.png)
 
 ### Логи
 
@@ -176,11 +186,14 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 ### Сеть
 Развернута VPC.
 
+![network](img/network.png)
+
 Сервера web, Prometheus, Elasticsearch помещены в приватные подсети. 
 
 Сервера Grafana, Kibana, application load balancer определены в публичную подсеть.
 
 Настроена [Security Groups](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
+
 
 Настроена ВМ с публичным адресом, в которой  открыт только один порт — ssh. 
 Настроены все security groups на разрешение входящего ssh из этой security group. 
@@ -194,8 +207,14 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 
 ```
 
+![ssh_bastion](<img/img 2023-06-17 190010.png>)
+
 ### Резервное копирование
-Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
+Созданы snapshot дисков всех ВМ посредством `terraform` [snapshot.tf](terraform/snapshot.tf). 
+Настроено ежедневное копирование.
+Ограничено время жизни snaphot в неделю - число хранимых снимков 7. 
+
+![snapshot](img/snapshot.png)
 
 ### Использованные источники
 Документация Yandex Cloud по сетям и подсетям:
