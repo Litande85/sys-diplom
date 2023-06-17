@@ -106,7 +106,7 @@ web-2                      : ok=7    changed=2    unreachable=0    failed=0    s
 
 Использован  статичный файл для сайта [index.html](ansible/index.html). Подтянут в docker через volume.
 
-
+![dockernginx](<img/dockernginx 2023-06-18 011651.png>)
 
 Созданы [Target Group, Backend Group](terraform/groups.tf).
 
