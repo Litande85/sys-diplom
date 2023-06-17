@@ -64,6 +64,42 @@
 На них установлен сервер nginx посредством playbook ansible [web.yml](ansible/web.yml) в docker контейнере. 
 ОС и содержимое ВМ идентично, это веб-сервера.
 
+```bash
+PLAY [Play nginx] *****************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Install reqs for Docker] ****************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Install the Docker module for Python] ***************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Create a directory /home/user/html if it does not exist] ********************************************************
+ok: [web-1]
+ok: [web-2]
+
+TASK [Create a directory /var/log/nginx if it does not exist] *********************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [Copy index.html] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [Create container] ***********************************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+PLAY RECAP ************************************************************************************************************
+web-1                      : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web-2                      : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
 Использован  статичный файл для сайта [index.html](ansible/index.html)
 
 Созданы [Target Group, Backend Group](terraform/groups.tf).

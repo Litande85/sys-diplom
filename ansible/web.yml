@@ -22,9 +22,15 @@
       pip:
         name: docker
     
-    - name: Create a directory if it does not exist
+    - name: Create a directory /home/user/html if it does not exist
       ansible.builtin.file:
         path: /home/user/html
+        state: directory
+        mode: '0777'
+
+    - name: Create a directory /var/log/nginx if it does not exist
+      ansible.builtin.file:
+        path: /var/log/nginx
         state: directory
         mode: '0777'
 
@@ -40,6 +46,8 @@
         image: "nginx:latest"
         volumes:
           - /home/user/html:/usr/share/nginx/html
+          - /var/log/nginx:/var/log/nginx
+
         ports:
           - "80:80"
         state: started
