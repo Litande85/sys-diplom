@@ -15,14 +15,75 @@
 Ключевая задача — разработать отказоустойчивую инфраструктуру для сайта, включающую мониторинг, сбор логов и резервное копирование основных данных. Инфраструктура должна размещаться в [Yandex Cloud](https://cloud.yandex.com/).
 
 ## Инфраструктура
-Для развёртки инфраструктуры используйте Terraform и Ansible. 
 
-Параметры виртуальной машины (ВМ) подбирайте по потребностям сервисов, которые будут на ней работать. 
+### *План инфраструктуры*
 
-Ознакомьтесь со всеми пунктами из этой секции, не беритесь сразу выполнять задание, не дочитав до конца. Пункты взаимосвязаны и могут влиять друг на друга.
+## *[Сеть main-network](terraform/network.tf)*
+
+    Внутренняя подсеть для сайта 1
+    Внутренняя подсеть для сайта 2
+    Внутренняя подсеть для сервисов
+    Публичная подсеть bastion host
+
+Документация Yandex Cloud по сетям и подсетям:
+
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/network-create" target="_blank">Создание сети</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create" target="_blank">Создание подсети</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/create-nat-gateway">Настройка Nat-шлюза</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/operations/static-route-create">Статический маршрут</a>
+
+
+
+## *[Группы](terraform/groups.tf)*
+
+    Target Group
+    Backend Group
+    Security Groups
+
+Документация Yandex Cloud по Группам:
+
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/target-group-create" target="_blank">Создать целевую группу Target Group для балансировщика</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/backend-group-create" target="_blank">Создать группу бэкендов Backend Group</a>
+* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/vpc/operations/security-group-create.md" target="_blank">Создание Группы безопасности</a>
+* <a href = "https://cloud.yandex.ru/docs/vpc/concepts/security-groups" target="_blank">Группы безопасности</a>
+* <a href = "https://github.com/yandex-cloud/docs/blob/master/ru/managed-kubernetes/operations/connect/security-groups.md" target="_blank">Настройка групп безопасности</a>
+
+## *Инстансы*
+
+    [web-1](terraform/web-1.tf)
+    [web-2](terraform/web-2.tf)
+    [bastion](terraform/bastion.tf)
+    [load-balancer](terraform/load-balancer.tf)
+    [router](terraform/router.tf)
+
+Использованные источники:
+* <a href = "https://cloud.yandex.ru/docs/cos/tutorials/coi-with-terraform" target="_blank">Создание VM с docker контенером</a>
+* <a href = "https://dev.to/domysee/setting-up-a-reverse-proxy-with-nginx-and-docker-compose-29jg" target="_blank">Настройка nginx и docker-compose</a>
+* <a href = "https://cloud.yandex.ru/docs/tutorials/routing/bastion" target="_blank">Создание бастиона</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/application-load-balancer-create" target="_blank">Создание L7-балансировщика</a>
+* <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
+
+
+
+
+Для развёртки инфраструктуры использован [Terraform](terraform). 
+
+Для установки сервисов использован [Ansible](ansible).
+
+
+Использованная литература:
+
+* <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
+
 
 ### Сайт
-Создайте две ВМ в разных зонах, установите на них сервер nginx, если его там нет. ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
+Создайно две ВМ в разных зонах посредством [Terraform](terraform)
+
+    web-1 10.1.0.10 ru-central1-a
+    web-2 10.2.0.10 ru-central1-b
+
+,  на них установлен сервер nginx. 
+ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
 
 Используйте набор статичных файлов для сайта. Можно переиспользовать сайт из домашнего задания.
 
