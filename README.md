@@ -213,6 +213,10 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 
 ![ssh_bastion](<img/img 2023-06-17 190010.png>)
 
+Настроена таблица маршрутизации для доступа из локальной сети к интеренет.
+
+![gateway](<img/gate 2023-06-18 002628.png>)
+
 ### Резервное копирование
 Созданы snapshot дисков всех ВМ посредством `terraform` [snapshot.tf](terraform/snapshot.tf). 
 Настроено ежедневное копирование.
@@ -246,3 +250,5 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 * <a href = "https://cloud.yandex.ru/docs/application-load-balancer/operations/http-router-create" target="_blank">Создание HTTP-роутера для HTTP-трафика</a>
 
 * <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
+
+* <a href = "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html" target="_blank">Модули Ansible</a>
