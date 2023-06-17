@@ -187,6 +187,46 @@ web-1                      : ok=5    changed=3    unreachable=0    failed=0    s
 web-2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
+## *Установка nginx-exporter*
+
+ansible-playbook nginx-exporter.yml [ngnginx-exporter.yml](ansible/nginx-exporter.yml)
+
+```bash
+
+PLAY [Play nginx-exporter] ********************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [web-2]
+ok: [web-1]
+
+TASK [download nginx log exporter] ************************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+TASK [unarchive nginx log exporter] ***********************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+TASK [move nginx log exporter to /usr/bin] ****************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+TASK [copy  nginx log exporter config] ********************************************************************************
+changed: [web-1]
+changed: [web-2]
+
+TASK [install unit file to systemd] ***********************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+TASK [nginxlog-exporter started] **************************************************************************************
+changed: [web-2]
+changed: [web-1]
+
+PLAY RECAP ************************************************************************************************************
+web-1                      : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web-2                      : ok=7    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
 
 ## *Установка grafana*
 
