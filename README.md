@@ -135,7 +135,7 @@ web-2                      : ok=7    changed=2    unreachable=0    failed=0    s
 
 Сайт открывается с публичного IP балансера
 
-### <a href = "http://158.160.42.86/" target="_blank">http://158.160.42.86/</a>
+### <a href = "http://158.160.97.33/" target="_blank">http://158.160.97.33/</a>
 
 ![web](<img/web 2023-06-18 001320.png>)
 
@@ -289,7 +289,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 В выпадающем списке VictoriaMetrics выбран Prometheus > кнопка Import.
 
 Метрики доступны по публичному IP сервера grafana:
-### <a href = "http://51.250.38.227:3000" target="_blank">http://51.250.38.227:3000</a>
+### <a href = "http://51.250.41.248:3000" target="_blank">http://51.250.41.248:3000</a>
 
 Логин `admin`, пароль `admin`.
 
@@ -333,7 +333,7 @@ elasticsearch              : ok=5    changed=4    unreachable=0    failed=0    s
 Токен генерируется в интерактивном режиме контейнера:
 
 ```bash
-user@makhotaev:~$ ssh -J user@51.250.39.35 user@10.3.0.100
+user@makhotaev:~$ ssh -J user@51.250.41.10 user@10.3.0.100
 The authenticity of host '10.3.0.100 (<no hostip for proxy command>)' can't be established.
 ECDSA key fingerprint is SHA256:0Gs22+3ScKzVJtqWC8RayghpimAGiwTFBvNiC7Dt+qE.
 Are you sure you want to continue connecting (yes/no)? yes
@@ -406,7 +406,7 @@ kibana                     : ok=4    changed=3    unreachable=0    failed=0    s
 Настроена Security Groups [groups.tf](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
 
 
-Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.39.35, в которой  открыт только один порт — ssh. 
+Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.41.10, в которой  открыт только один порт — ssh. 
 Настроены все security groups на разрешение входящего ssh из этой security group. 
 Эта вм  реализует концепцию bastion host. 
 Можно  подключаться по ssh ко всем хостам через этот хост.
@@ -414,7 +414,7 @@ kibana                     : ok=4    changed=3    unreachable=0    failed=0    s
 Пример - доступ через бастион к web-1:
 
 ```bash
-ssh -i ~/.ssh/id_rsa -J user@51.250.39.35 user@10.1.0.10
+ssh -i ~/.ssh/id_rsa -J user@51.250.41.10 user@10.1.0.10
 
 ```
 
@@ -425,7 +425,7 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.39.35 user@10.1.0.10
 ```yml
 
 [all:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q 51.250.39.35"'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q 51.250.41.10"'
 
 ```
 
