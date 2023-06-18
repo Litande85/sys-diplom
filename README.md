@@ -295,8 +295,9 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 ![grafana](img/grafana.png)
 
-Любую метрику, которые собирает `node-exporter (web:9100/metrics)` или `ngingxlog-exporter (web:4040/metrics)` можно смотреть на Dashboard в Grafana: +new Dashboard > Add new Panel
+Любую метрику, которую собирает `node-exporter (web:9100/metrics)` или `ngingxlog-exporter (web:4040/metrics)`, можно смотреть на Dashboard в Grafana: +new Dashboard > Add new Panel > metric
 
+![metric](<img/Dashboard 2023-06-18 123717.png>)
 
 ![nginx-log](<img/nginx-log 2023-06-18 040317.png>)
 ### Логи
@@ -308,14 +309,14 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 ![network](img/network.png)
 
-Сервера web, Prometheus, Elasticsearch помещены в приватные подсети. 
+Сервера web-1, web-2, Prometheus, Elasticsearch помещены в приватные подсети. 
 
-Сервера Grafana, Kibana, application load balancer определены в публичную подсеть.
+Сервера Grafana, Kibana, application load balancer, bastion host определены в публичную подсеть.
 
 Настроена Security Groups [groups.tf](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
 
 
-Настроена ВМ с публичным адресом, в которой  открыт только один порт — ssh. 
+Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.35.253, в которой  открыт только один порт — ssh. 
 Настроены все security groups на разрешение входящего ssh из этой security group. 
 Эта вм  реализует концепцию bastion host. 
 Можно  подключаться по ssh ко всем хостам через этот хост.
