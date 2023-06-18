@@ -187,6 +187,10 @@ web-1                      : ok=5    changed=3    unreachable=0    failed=0    s
 web-2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
+![node_exporter_status](<img/node-exporterst 2023-06-18 040936.png>)
+
+![node_exporter_metrics](<img/node-metric 2023-06-18 040936.png>)
+
 ## *Установка nginx-exporter*
 
 ansible-playbook nginx-exporter.yml [ngnginx-exporter.yml](ansible/nginx-exporter.yml)
@@ -229,6 +233,8 @@ web-2                      : ok=7    changed=6    unreachable=0    failed=0    s
 ```
 
 ![nginxlog-exporter](img/nginxlog-exporter.png)
+
+![Alt text](<img/node-metrics 2023-06-18 040936.png>)
 
 ## *Установка grafana*
 
