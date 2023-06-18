@@ -23,16 +23,16 @@
 
 ## *[Сеть main-network](terraform/network.tf)*
 
-    Внутренняя подсеть для сайта 1
-    Внутренняя подсеть для сайта 2
-    Внутренняя подсеть для сервисов
+    Внутренняя подсеть для сайта web-1
+    Внутренняя подсеть для сайта web-2
+    Внутренняя подсеть для сервисов Elasticsearch, Prometheus
     Публичная подсеть bastion host, Grafana, Kibana
 
 ## *[Группы](terraform/groups.tf)*
 
-    Target Group
-    Backend Group
-    Security Groups
+    Target Group - web-1, web-2 
+    Backend Group = Target Group - web-1, web-2
+    Security Groups для внутренней подсети, для балансировщика, bastion host, Grafana, Kibana 
 
 ## *Инстансы*
 
@@ -56,13 +56,25 @@
 
 
 ### Сайт
-Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf)
+Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf). Использован специальный image Yandex Cloud с предустановленным docker
+
+```tf
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.container-optimized-image.id
+    }
+  }
+```
 
     web-1 10.1.0.10 ru-central1-a
     web-2 10.2.0.10 ru-central1-b
 
-На них установлен сервер nginx посредством playbook ansible [web.yml](ansible/web.yml) в docker контейнере. 
 ОС и содержимое ВМ идентично, это веб-сервера.
+
+На них установлен сервер nginx посредством playbook ansible в docker контейнере `image: "nginx:latest"`. 
+
+ansible-playbook [web.yml](ansible/web.yml)
+
 
 ```bash
 PLAY [Play nginx] *****************************************************************************************************
@@ -104,19 +116,20 @@ web-2                      : ok=7    changed=2    unreachable=0    failed=0    s
 
 ![web2](img/nginx1.png)
 
-Использован  статичный файл для сайта [index.html](ansible/index.html). Подтянут в docker через volume.
+Использован  статичный файл для сайта [index.html](ansible/index.html). Подтянут в docker через volume `- /home/user/html:/usr/share/nginx/html`.
 
 ![dockernginx](<img/dockernginx 2023-06-18 011651.png>)
 
-Созданы [Target Group, Backend Group](terraform/groups.tf).
+
+Созданы Target Group, Backend Group [groups.tf](terraform/groups.tf).
 
 ![tg-group](img/tg-group.png)
 
 ![backend-group](img/backend-group.png)
 
-Создан [HTTP router](terraform/router.tf).
+Создан HTTP router [router.tf](terraform/router.tf).
 
-Создан [Application load balancer](terraform/load-balancer.tf).
+Создан Application load balancer [load-balancer.tf](terraform/load-balancer.tf).
 
 ![load-balancer](img/load-balancer.png)
 
@@ -126,11 +139,12 @@ web-2                      : ok=7    changed=2    unreachable=0    failed=0    s
 
 ![web](<img/web 2023-06-18 001320.png>)
 
+
 ### Мониторинг
 
 ## *Установка prometheus*
 
-ansible-playbook prometheus.yml [prometheus.yml](ansible/prometheus.yml)
+ansible-playbook [prometheus.yml](ansible/prometheus.yml)
 
 ```bash
 PLAY [Play prometheus] ************************************************************************************************
@@ -153,7 +167,7 @@ prometheus                 : ok=4    changed=3    unreachable=0    failed=0    s
 
 ## *Установка node-exporter*
 
-ansible-playbook node-exporter.yml [node-exporter.yml](ansible/node-exporter.yml)
+ansible-playbook [node-exporter.yml](ansible/node-exporter.yml)
 
 ```bash
 PLAY [Play node-exporter] *********************************************************************************************
@@ -193,7 +207,7 @@ web-2                      : ok=5    changed=3    unreachable=0    failed=0    s
 
 ## *Установка nginx-exporter*
 
-ansible-playbook nginx-exporter.yml [ngnginx-exporter.yml](ansible/nginx-exporter.yml)
+ansible-playbook  [ngnginx-exporter.yml](ansible/nginx-exporter.yml)
 
 ```bash
 
@@ -234,11 +248,11 @@ web-2                      : ok=7    changed=6    unreachable=0    failed=0    s
 
 ![nginxlog-exporter](img/nginxlog-exporter.png)
 
-![Alt text](<img/node-metrics 2023-06-18 040936.png>)
+![nginx-metrics](<img/node-metrics 2023-06-18 040936.png>)
 
 ## *Установка grafana*
 
-ansible-playbook grafana.yml [grafana.yml](ansible/grafana.yml)
+ansible-playbook [grafana.yml](ansible/grafana.yml)
 
 ```bash
 PLAY [Play grafana] ***************************************************************************************************
@@ -280,6 +294,9 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 Логин `admin`, пароль `admin`.
 
 ![grafana](img/grafana.png)
+
+Любую метрику, которые собирает `node-exporter (web:9100/metrics)` или `ngingxlog-exporter (web:4040/metrics)` можно смотреть на Dashboard в Grafana: +new Dashboard > Add new Panel
+
 
 ![nginx-log](<img/nginx-log 2023-06-18 040317.png>)
 ### Логи
