@@ -23,10 +23,10 @@
 
 ## *[Сеть main-network](terraform/network.tf)*
 
-    Внутренняя подсеть для сайта web-1
-    Внутренняя подсеть для сайта web-2
-    Внутренняя подсеть для сервисов Elasticsearch, Prometheus
-    Публичная подсеть bastion host, Grafana, Kibana
+    Внутренняя подсеть для сайта web-1 10.1.0.0/16 ru-central1-a
+    Внутренняя подсеть для сайта web-2 10.2.0.0/16 ru-central1-b
+    Внутренняя подсеть для сервисов Elasticsearch, Prometheus 10.3.0.0/16 ru-central1-c
+    Публичная подсеть bastion host, Grafana, Kibana 10.4.0.0/16 ru-central1-c
 
 ## *[Группы](terraform/groups.tf)*
 
