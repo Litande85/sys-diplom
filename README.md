@@ -353,3 +353,4 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 * <a href = "https://blog.ruanbekker.com/blog/2020/10/26/use-a-ssh-jump-host-with-ansible/" target="_blank">Использование Бастиона с Ansible</a>
 * <a href = "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html" target="_blank">Модули Ansible</a>
 * <a href = "https://netology.ru/profile/program/srlb-14/lessons/223119/lesson_items/1207431" target="_blank">Презентация Нетологии Prometheus</a>
+* <a href = "https://cloud.yandex.ru/docs/compute/operations/snapshot-control/create-schedule" target="_blank">Snapshots Yandex Cloud</a>
