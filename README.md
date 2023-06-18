@@ -295,7 +295,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 Сервера Grafana, Kibana, application load balancer определены в публичную подсеть.
 
-Настроена [Security Groups](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
+Настроена Security Groups [groups.tf](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
 
 
 Настроена ВМ с публичным адресом, в которой  открыт только один порт — ssh. 
