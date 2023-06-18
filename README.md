@@ -330,7 +330,16 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 
 ![ssh_bastion](<img/img 2023-06-17 190010.png>)
 
-Настроена таблица маршрутизации для доступа из локальной сети к интеренет через бастион.
+В [hosts](ansible/hosts) ansible указано специальное правило подключения к хостам:
+
+```yml
+
+[all:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q 51.250.35.253"'
+
+```
+
+Настроена таблица маршрутизации для доступа из машин в локальной сети к интеренет через бастион.
 
 ![gateway](<img/gate 2023-06-18 002628.png>)
 
