@@ -42,7 +42,7 @@
 [load-balancer](terraform/load-balancer.tf) |
 [router](terraform/router.tf) |
 [prometheus](terraform/prometheus.tf) |
-[grafana](terraform/grafana.tf)
+[grafana](terraform/grafana.tf) |
 [elasticsearch](terraform/elasticsearch.tf) |
 [kibana](terraform/kibana.tf)
 
