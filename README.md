@@ -275,6 +275,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 
 ![grafana](img/grafana.png)
 
+![nginx-log](<img/nginx-log 2023-06-18 040317.png>)
 ### Логи
 
 В разработке.
