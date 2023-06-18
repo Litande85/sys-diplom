@@ -22,10 +22,8 @@ resource "yandex_compute_instance" "web-1" {
 
   metadata = {
     user-data = "${file("./meta.txt")}"
+
   }
 
-  scheduling_policy {  
-    preemptible = true
-  }
 
 }

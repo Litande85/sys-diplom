@@ -170,3 +170,35 @@ resource "yandex_vpc_security_group" "kibana-sg" {
   }
 }
 
+resource "yandex_vpc_security_group" "elasticsearch-sg" {
+  name        = "elasticsearch-sg"
+  description = "Elasticsearch security group"
+  network_id = yandex_vpc_network.main-network.id
+
+  ingress {
+    protocol          = "TCP"
+    description       = "Rule for kibana"
+    security_group_id = yandex_vpc_security_group.kibana-sg.id
+    port              = 9200
+  }
+
+  ingress {
+    protocol          = "TCP"
+    description       = "Rule for web"
+    security_group_id = yandex_vpc_security_group.private-sg.id
+    port              = 9200
+  }
+
+  ingress {
+    protocol          = "TCP"
+    description       = "Rule for bastion ssh"
+    security_group_id = yandex_vpc_security_group.bastion-sg.id
+    port              = 22
+  }
+
+  egress {
+    protocol       = "ANY"
+    description    = "Rule out"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}

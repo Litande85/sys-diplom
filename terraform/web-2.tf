@@ -12,6 +12,7 @@ resource "yandex_compute_instance" "web-2" {
     initialize_params {
       image_id = data.yandex_compute_image.container-optimized-image.id
     }
+    
   }
 
   network_interface {
@@ -24,9 +25,6 @@ resource "yandex_compute_instance" "web-2" {
     user-data = "${file("./meta.txt")}"
   }
 
-  scheduling_policy {  
-    preemptible = true
-  }
 
 
 }

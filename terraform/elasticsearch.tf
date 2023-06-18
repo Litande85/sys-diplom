@@ -16,7 +16,7 @@ resource "yandex_compute_instance" "elasticsearch" {
 
   network_interface {
     subnet_id  = yandex_vpc_subnet.private-subnet-3.id
-    security_group_ids = [yandex_vpc_security_group.private-sg.id]
+    security_group_ids = [yandex_vpc_security_group.private-sg.id, yandex_vpc_security_group.elasticsearch-sg.id]
     ip_address         = "10.3.0.100"
   }
 
@@ -24,8 +24,5 @@ resource "yandex_compute_instance" "elasticsearch" {
     user-data = "${file("./meta.txt")}"
   }
 
-  scheduling_policy {  
-    preemptible = true
-  }
 
 }

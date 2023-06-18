@@ -4,8 +4,8 @@ resource "yandex_compute_instance" "prometheus" {
   zone        = "ru-central1-c"
 
   resources {
-    cores  = 4
-    memory = 4
+    cores  = 2
+    memory = 2
   }
 
   boot_disk {
@@ -26,8 +26,5 @@ resource "yandex_compute_instance" "prometheus" {
     user-data = "${file("./meta.txt")}"
   }
 
-  scheduling_policy {  
-    preemptible = true
-  }
-
+  
 }

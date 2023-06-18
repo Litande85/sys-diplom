@@ -302,7 +302,97 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 ![nginx-log](<img/nginx-log 2023-06-18 040317.png>)
 ### Логи
 
-В разработке.
+
+## *Установка Elasticsearch*
+
+ansible-playbook [elasticsearch.yml](ansible/elasticsearch.yml)
+
+```bash
+PLAY [Play elasticsearch] *********************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [elasticsearch]
+
+TASK [Install reqs for Docker] ****************************************************************************************
+changed: [elasticsearch]
+
+TASK [Install the Docker module for Python] ***************************************************************************
+changed: [elasticsearch]
+
+TASK [Create a directory /etc/elasticsearch/data if it does not exist] ************************************************
+changed: [elasticsearch]
+
+
+TASK [Create container elasticsearch] *********************************************************************************
+changed: [elasticsearch]
+
+PLAY RECAP ************************************************************************************************************
+elasticsearch              : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
+Токен генерируется в интерактивном режиме контейнера:
+
+```bash
+user@makhotaev:~$ ssh -J user@51.250.39.35 user@10.3.0.100
+The authenticity of host '10.3.0.100 (<no hostip for proxy command>)' can't be established.
+ECDSA key fingerprint is SHA256:0Gs22+3ScKzVJtqWC8RayghpimAGiwTFBvNiC7Dt+qE.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.3.0.100' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-97-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+New release '22.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+Last login: Sun Jun 18 11:02:10 2023 from 10.4.0.10
+user@elasticsearch:~$ sudo docker ps
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                            NAMES
+c5921051e79a   elasticsearch:8.8.0   "/bin/tini -- /usr/l…"   4 minutes ago   Up 4 minutes   0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   elasticsearch
+user@elasticsearch:~$ sudo docker exec -it elasticsearch bash
+elasticsearch@c5921051e79a:~$ cat /etc/elasticsearch/data
+cat: /etc/elasticsearch/data: No such file or directory
+elasticsearch@c5921051e79a:~$ cat /usr/share/elasticsearch/data
+cat: /usr/share/elasticsearch/data: Is a directory
+elasticsearch@c5921051e79a:~$ ls /usr/share/elasticsearch/data
+_state  node.lock  nodes  snapshot_cache
+elasticsearch@c5921051e79a:~$ bin/elasticsearch-create-enrollment-token -s kibana
+WARNING: Owner of file [/usr/share/elasticsearch/config/users] used to be [root], but now is [elasticsearch]
+WARNING: Owner of file [/usr/share/elasticsearch/config/users_roles] used to be [root], but now is [elasticsearch]
+eyJ2ZXIiOiI4LjguMCIsImFkciI6WyIxNzIuMTcuMC4yOjkyMDAiXSwiZmdyIjoiYTkyMDVkN2RlMjNiZDRjOWUyYjM0MjU0OGE4NDkyMjRhNmQ4ZmQzOTNkZTE2ZjZkZTFjMzlhODRkNjBkNTM1MSIsImtleSI6Ik1GNDF6b2dCQTJsYUF0UzF0dkIxOmxvSGFDVlRVU2EyTDA2MUQ3dEppc1EifQ==
+
+```
+
+Пароль `123`
+
+Токен
+`eyJ2ZXIiOiI4LjguMCIsImFkciI6WyIxNzIuMTcuMC4yOjkyMDAiXSwiZmdyIjoiYTkyMDVkN2RlMjNiZDRjOWUyYjM0MjU0OGE4NDkyMjRhNmQ4ZmQzOTNkZTE2ZjZkZTFjMzlhODRkNjBkNTM1MSIsImtleSI6Ik1GNDF6b2dCQTJsYUF0UzF0dkIxOmxvSGFDVlRVU2EyTDA2MUQ3dEppc1EifQ==`
+
+
+## *Установка kibana*
+
+ansible-playbook [kibana-playbook.yml](ansible/kibana-playbook.yml)
+
+```bash
+
+PLAY [Play kibana] ****************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [kibana]
+
+TASK [Install reqs for Docker] ****************************************************************************************
+changed: [kibana]
+
+TASK [Install the Docker module for Python] ***************************************************************************
+changed: [kibana]
+
+TASK [Create container] ***********************************************************************************************
+changed: [kibana]
+
+PLAY RECAP ************************************************************************************************************
+kibana                     : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 
 ### Сеть
 Развернута VPC.
@@ -316,7 +406,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 Настроена Security Groups [groups.tf](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
 
 
-Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.35.253, в которой  открыт только один порт — ssh. 
+Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.39.35, в которой  открыт только один порт — ssh. 
 Настроены все security groups на разрешение входящего ssh из этой security group. 
 Эта вм  реализует концепцию bastion host. 
 Можно  подключаться по ssh ко всем хостам через этот хост.
@@ -324,7 +414,7 @@ grafana                    : ok=5    changed=3    unreachable=0    failed=0    s
 Пример - доступ через бастион к web-1:
 
 ```bash
-ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
+ssh -i ~/.ssh/id_rsa -J user@51.250.39.35 user@10.1.0.10
 
 ```
 
@@ -335,7 +425,7 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 ```yml
 
 [all:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q 51.250.35.253"'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -W %h:%p -q 51.250.39.35"'
 
 ```
 
@@ -397,3 +487,12 @@ resource "yandex_vpc_route_table" "route_table" {
 * <a href = "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html" target="_blank">Модули Ansible</a>
 * <a href = "https://netology.ru/profile/program/srlb-14/lessons/223119/lesson_items/1207431" target="_blank">Презентация Нетологии Prometheus</a>
 * <a href = "https://cloud.yandex.ru/docs/compute/operations/snapshot-control/create-schedule" target="_blank">Snapshots Yandex Cloud</a>
+* <a href = "https://habr.com/ru/companies/otus/articles/542144/" target="_blank">habr Централизованное логирование в Docker с применением ELK Stack
+</a>
+* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
+* <a href = "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html" target="_blank">Установка Elasticsearch с помощью Docker</a>
+* <a href = "https://hub.docker.com/_/elasticsearch" target="_blank">https://hub.docker.com/_/elasticsearch</a>
+* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
+* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
+* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
+* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
