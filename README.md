@@ -161,8 +161,13 @@ changed: [prometheus]
 TASK [Install prometheus] *********************************************************************************************
 changed: [prometheus]
 
+TASK [Print stdout] ***************************************************************************************************
+ok: [prometheus] => {
+    "result.stdout": "prometheus-2.40.1.linux-386/\nprometheus-2.40.1.linux-386/NOTICE\nprometheus-2.40.1.linux-386/prometheus\nprometheus-2.40.1.linux-386/LICENSE\nprometheus-2.40.1.linux-386/console_libraries/\nprometheus-2.40.1.linux-386/console_libraries/menu.lib\nprometheus-2.40.1.linux-386/console_libraries/prom.lib\nprometheus-2.40.1.linux-386/promtool\nprometheus-2.40.1.linux-386/prometheus.yml\nprometheus-2.40.1.linux-386/consoles/\nprometheus-2.40.1.linux-386/consoles/prometheus-overview.html\nprometheus-2.40.1.linux-386/consoles/prometheus.html\nprometheus-2.40.1.linux-386/consoles/node-cpu.html\nprometheus-2.40.1.linux-386/consoles/node-overview.html\nprometheus-2.40.1.linux-386/consoles/node-disk.html\nprometheus-2.40.1.linux-386/consoles/index.html.example\nprometheus-2.40.1.linux-386/consoles/node.html\n      - targets: [\"10.1.0.10:9100\", \"10.2.0.10:9100\"] "
+}
+
 PLAY RECAP ************************************************************************************************************
-prometheus                 : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+prometheus                 : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
 ## *Установка node-exporter*
@@ -330,44 +335,15 @@ PLAY RECAP *********************************************************************
 elasticsearch              : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
-Токен генерируется в интерактивном режиме контейнера:
+Проверка результата установки:
 
 ```bash
-user@makhotaev:~$ ssh -J user@51.250.41.10 user@10.3.0.100
-The authenticity of host '10.3.0.100 (<no hostip for proxy command>)' can't be established.
-ECDSA key fingerprint is SHA256:0Gs22+3ScKzVJtqWC8RayghpimAGiwTFBvNiC7Dt+qE.
-Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added '10.3.0.100' (ECDSA) to the list of known hosts.
-Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-97-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-New release '22.04.2 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
-
-Last login: Sun Jun 18 11:02:10 2023 from 10.4.0.10
-user@elasticsearch:~$ sudo docker ps
-CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                            NAMES
-c5921051e79a   elasticsearch:8.8.0   "/bin/tini -- /usr/l…"   4 minutes ago   Up 4 minutes   0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   elasticsearch
-user@elasticsearch:~$ sudo docker exec -it elasticsearch bash
-elasticsearch@c5921051e79a:~$ cat /etc/elasticsearch/data
-cat: /etc/elasticsearch/data: No such file or directory
-elasticsearch@c5921051e79a:~$ cat /usr/share/elasticsearch/data
-cat: /usr/share/elasticsearch/data: Is a directory
-elasticsearch@c5921051e79a:~$ ls /usr/share/elasticsearch/data
-_state  node.lock  nodes  snapshot_cache
-elasticsearch@c5921051e79a:~$ bin/elasticsearch-create-enrollment-token -s kibana
-WARNING: Owner of file [/usr/share/elasticsearch/config/users] used to be [root], but now is [elasticsearch]
-WARNING: Owner of file [/usr/share/elasticsearch/config/users_roles] used to be [root], but now is [elasticsearch]
-eyJ2ZXIiOiI4LjguMCIsImFkciI6WyIxNzIuMTcuMC4yOjkyMDAiXSwiZmdyIjoiYTkyMDVkN2RlMjNiZDRjOWUyYjM0MjU0OGE4NDkyMjRhNmQ4ZmQzOTNkZTE2ZjZkZTFjMzlhODRkNjBkNTM1MSIsImtleSI6Ik1GNDF6b2dCQTJsYUF0UzF0dkIxOmxvSGFDVlRVU2EyTDA2MUQ3dEppc1EifQ==
-
+curl -X GET 'localhost:9200/_cluster/health?pretty'
 ```
 
-Пароль `123`
+![elasticsearch_health](img/elasticsearch_health.png)
 
-Токен
-`eyJ2ZXIiOiI4LjguMCIsImFkciI6WyIxNzIuMTcuMC4yOjkyMDAiXSwiZmdyIjoiYTkyMDVkN2RlMjNiZDRjOWUyYjM0MjU0OGE4NDkyMjRhNmQ4ZmQzOTNkZTE2ZjZkZTFjMzlhODRkNjBkNTM1MSIsImtleSI6Ik1GNDF6b2dCQTJsYUF0UzF0dkIxOmxvSGFDVlRVU2EyTDA2MUQ3dEppc1EifQ==`
+
 
 
 ## *Установка kibana*
@@ -492,7 +468,5 @@ resource "yandex_vpc_route_table" "route_table" {
 * <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
 * <a href = "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html" target="_blank">Установка Elasticsearch с помощью Docker</a>
 * <a href = "https://hub.docker.com/_/elasticsearch" target="_blank">https://hub.docker.com/_/elasticsearch</a>
-* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
-* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
-* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
-* <a href = "https://daffin.ru/devops/docker/elk/" target="_blank">ELK stack</a>
+* <a href = "https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html" target="_blank">https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html</a>
+
