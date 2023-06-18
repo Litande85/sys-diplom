@@ -330,7 +330,7 @@ ssh -i ~/.ssh/id_rsa -J user@51.250.35.253 user@10.1.0.10
 
 ![ssh_bastion](<img/img 2023-06-17 190010.png>)
 
-В [hosts](ansible/hosts) ansible указано специальное правило подключения к хостам:
+В [hosts](ansible/hosts) ansible указано специальное правило подключения к хостам через bastion host:
 
 ```yml
 
@@ -339,7 +339,23 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/
 
 ```
 
-Настроена таблица маршрутизации для доступа из машин в локальной сети к интеренет через бастион.
+Настроена таблица маршрутизации для доступа из машин в локальной сети к интеренет через бастион [network.tf](terraform/network.tf).
+
+```yaml
+resource "yandex_vpc_gateway" "nat_gateway" {
+  name = "test-gateway"
+  shared_egress_gateway {}
+}
+
+resource "yandex_vpc_route_table" "route_table" {
+  network_id = yandex_vpc_network.main-network.id
+
+  static_route {
+    destination_prefix = "0.0.0.0/0"
+    gateway_id         = yandex_vpc_gateway.nat_gateway.id
+  }
+}
+```
 
 ![gateway](<img/gate 2023-06-18 002628.png>)
 
