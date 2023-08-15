@@ -56,7 +56,55 @@
 
 
 ### Сайт
-Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-1](terraform/web-1.tf), [web-2](terraform/web-2.tf). Использован специальный image Yandex Cloud с предустановленным docker
+Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-servers.tf](terraform/web-servers.tf). 
+Поскольку это похожие ресурсы, то  в переменных [variables.tf](terraform/variables.tf)  создан map, ключом в котором является имя сервера, а значения  содержет зону, подсеть, IP-адрес:
+```
+locals {
+  web-servers = {
+   "web-1" = { zone = "ru-central1-a", subnet_id  = yandex_vpc_subnet.private-subnet-1.id, ip_address = "10.1.0.10" },
+   "web-2" = { zone = "ru-central1-b", subnet_id  = yandex_vpc_subnet.private-subnet-2.id, ip_address = "10.2.0.10" }
+ }
+}
+```
+
+После этого в одном ресурсе yandex_compute_instance [web-servers.tf](terraform/web-servers.tf) использован цикл for_each.
+
+id образа вынесен в переменную [variables.tf](terraform/variables.tf) и использован конкретный id - fd81ojtctf7kjqa3au3i - Debian 11.
+
+
+```
+resource "yandex_compute_instance" "web-servers" {
+  for_each    = local.web-servers
+  hostname    = each.key
+  name        = each.key
+  zone        = each.value.zone
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = var.image_id
+      type     = "network-ssd"
+      size     = "16"    
+      }
+  }
+
+  network_interface {
+    subnet_id  = each.value.subnet_id
+    security_group_ids = [yandex_vpc_security_group.private-sg.id]
+    ip_address         = each.value.ip_address
+  }
+
+  metadata = {
+    user-data = "${file("./meta.txt")}"
+  }
+
+
+} 
+```
 
 ```tf
   boot_disk {
@@ -66,10 +114,12 @@
   }
 ```
 
+В результате созданы веб-сервера:
+
     web-1 10.1.0.10 ru-central1-a
     web-2 10.2.0.10 ru-central1-b
 
-ОС и содержимое ВМ идентично, это веб-сервера.
+ОС и содержимое ВМ идентично.
 
 На них установлен сервер nginx посредством playbook ansible в docker контейнере `image: "nginx:latest"`. 
 
@@ -122,6 +172,25 @@ web-2                      : ok=7    changed=6    unreachable=0    failed=0    s
 
 
 Созданы Target Group, Backend Group [groups.tf](terraform/groups.tf).
+
+
+Так как создание nginx-серверов реализовано через цикл for each, то для автоматического добавления всех имеющихся nginx-серверов к балансировке использован мета-аргумент dynamic.
+
+```
+resource "yandex_alb_target_group" "tg-group" {
+  name = "tg-group"
+  
+  dynamic "target" {
+    for_each = local.web-servers
+    content {
+      ip_address = target.value.ip_address
+      subnet_id  = target.value.subnet_id
+
+    }
+  }
+  
+}
+```
 
 ![tg-group](img/tg-group.png)
 
@@ -431,6 +500,28 @@ resource "yandex_vpc_route_table" "route_table" {
 Настроено ежедневное копирование.
 Ограничено время жизни snaphot в неделю - число хранимых снимков 7. 
 
+Так как создание nginx-серверов реализовано через цикл for each, то создание snapshot для них также описано через цикл.
+
+```
+resource "yandex_compute_snapshot_schedule" "snapshot2" {
+  for_each    = local.web-servers
+  name = "snapshot-${each.key}"
+
+  schedule_policy {
+    expression = "0 15 ? * *"
+  }
+
+  snapshot_count = 7
+
+  snapshot_spec {
+    description = "daily-snapshot"
+  }
+
+  disk_ids = [yandex_compute_instance.web-servers[each.key].boot_disk.0.disk_id]
+  
+}
+```
+
 ![snapshots](<img/snapshot 2023-06-18 042114.png>)
 
 ![snapshot](img/snapshot.png)
@@ -469,4 +560,7 @@ resource "yandex_vpc_route_table" "route_table" {
 * <a href = "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html" target="_blank">Установка Elasticsearch с помощью Docker</a>
 * <a href = "https://hub.docker.com/_/elasticsearch" target="_blank">https://hub.docker.com/_/elasticsearch</a>
 * <a href = "https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html" target="_blank">https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html</a>
+* <a href = "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each" target="_blank">https://developer.hashicorp.com/terraform/language/meta-arguments/for_each</a>
+* <a href = "https://thenewstack.io/how-to-use-terraforms-for_each-with-examples/" target="_blank">How to Use Terraform’s ‘for_each’, with Examples</a>
+* <a href = "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks" target="_blank">dynamic Blocks</a>
 

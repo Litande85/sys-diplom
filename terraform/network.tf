@@ -30,7 +30,7 @@ resource "yandex_vpc_subnet" "private-subnet-1" {
   description    = "subnet for web-1"
   v4_cidr_blocks = ["10.1.0.0/16"]
   zone           = "ru-central1-a"
-  network_id     = "${yandex_vpc_network.main-network.id}"
+  network_id     = yandex_vpc_network.main-network.id
   route_table_id = yandex_vpc_route_table.route_table.id
 
 }
@@ -42,7 +42,7 @@ resource "yandex_vpc_subnet" "private-subnet-2" {
   description    = "subnet for web-2"
   v4_cidr_blocks = ["10.2.0.0/16"]
   zone           = "ru-central1-b"
-  network_id     = "${yandex_vpc_network.main-network.id}"
+  network_id     = yandex_vpc_network.main-network.id
   route_table_id = yandex_vpc_route_table.route_table.id
 }
 
@@ -53,7 +53,7 @@ resource "yandex_vpc_subnet" "private-subnet-3" {
   description    = "subnet for services"
   v4_cidr_blocks = ["10.3.0.0/16"]
   zone           = "ru-central1-c"
-  network_id     = "${yandex_vpc_network.main-network.id}"
+  network_id     = yandex_vpc_network.main-network.id
   route_table_id = yandex_vpc_route_table.route_table.id
 }
 
@@ -64,5 +64,5 @@ resource "yandex_vpc_subnet" "public-subnet" {
   description    = "subnet for bastion"
   v4_cidr_blocks = ["10.4.0.0/16"]
   zone           = "ru-central1-c"
-  network_id     = "${yandex_vpc_network.main-network.id}"
+  network_id     = yandex_vpc_network.main-network.id
 }
