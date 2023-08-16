@@ -54,10 +54,13 @@
 
 Для установки сервисов использован [Ansible](ansible).
 
+inventory-файл [ansible/hosts](ansible/hosts)  сгенерирован прямо из terraform, c  помощью ресурса local_file [hosts_ansible.tf](terraform/hosts_ansible.tf) и  шаблона inventory-файла [hosts.tpl](terraform/hosts.tpl).
+
 
 ### Сайт
 Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-servers.tf](terraform/web-servers.tf). 
 Поскольку это похожие ресурсы, то  в переменных [variables.tf](terraform/variables.tf)  создан map, ключом в котором является имя сервера, а значения  содержет зону, подсеть, IP-адрес:
+
 ```
 locals {
   web-servers = {
@@ -72,7 +75,7 @@ locals {
 id образа вынесен в переменную [variables.tf](terraform/variables.tf) и использован конкретный id - fd81ojtctf7kjqa3au3i - Debian 11.
 
 
-```
+```tf
 resource "yandex_compute_instance" "web-servers" {
   for_each    = local.web-servers
   hostname    = each.key
@@ -106,13 +109,6 @@ resource "yandex_compute_instance" "web-servers" {
 } 
 ```
 
-```tf
-  boot_disk {
-    initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
-    }
-  }
-```
 
 В результате созданы веб-сервера:
 
@@ -563,4 +559,9 @@ resource "yandex_compute_snapshot_schedule" "snapshot2" {
 * <a href = "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each" target="_blank">https://developer.hashicorp.com/terraform/language/meta-arguments/for_each</a>
 * <a href = "https://thenewstack.io/how-to-use-terraforms-for_each-with-examples/" target="_blank">How to Use Terraform’s ‘for_each’, with Examples</a>
 * <a href = "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks" target="_blank">dynamic Blocks</a>
+* <a href = "https://docs.comcloud.xyz/providers/hashicorp/local/latest/docs/resources/file" target="_blank">local_file (Resource)</a>
+* <a href = "https://developer.hashicorp.com/terraform/language/functions/templatefile" target="_blank">templatefile Function</a>
+* <a href = "https://stackoverflow.com/questions/45489534/best-way-currently-to-create-an-ansible-inventory-from-terraform" target="_blank">Best way currently to create an ansible inventory from terraform</a>
+* <a href = "https://stackoverflow.com/questions/66716192/create-inventory-file-from-terraform-when-for-each-is-used" target="_blank">Create Inventory File from Terraform when for_each is used</a>
+
 
