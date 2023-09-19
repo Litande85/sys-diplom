@@ -56,7 +56,7 @@
 
 inventory-файл [ansible/hosts](ansible/hosts)  сгенерирован прямо из terraform, c  помощью ресурса local_file [terraform/local_files.tf](terraform/local_files.tf) и  шаблона inventory-файла [hosts.tpl](terraform/templates/hosts.tpl).
 
-История установки сохранена в тестовых файлах [tests](test)
+История установки сохранена в тестовых файлах [tests](tests).
 
 ### <a name = "Сайт"> Сайт </a>
 Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-servers.tf](terraform/web-servers.tf). 
