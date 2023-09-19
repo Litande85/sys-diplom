@@ -10,8 +10,10 @@ resource "yandex_compute_instance" "kibana" {
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
-    }
+      image_id = var.image_id
+      type     = "network-ssd"
+      size     = "16"    
+      }
   }
 
   network_interface {
@@ -26,8 +28,5 @@ resource "yandex_compute_instance" "kibana" {
     user-data = "${file("./meta.txt")}"
   }
 
-  scheduling_policy {  
-    preemptible = true
-  }
 
 }

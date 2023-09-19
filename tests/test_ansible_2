@@ -1,0 +1,1217 @@
+grafana | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+elasticsearch | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+prometheus | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+10.1.0.10 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+10.2.0.10 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+kibana | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+PLAY [set timezone] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [elasticsearch]
+ok: [grafana]
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+ok: [prometheus]
+ok: [kibana]
+
+TASK [Set timezone to Europe/Moscow] *******************************************
+changed: [elasticsearch]
+changed: [10.1.0.10]
+changed: [grafana]
+changed: [prometheus]
+changed: [10.2.0.10]
+changed: [kibana]
+
+PLAY [Play web] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Include OS-specific variables.] **********************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Define nginx_user.] **********************************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+included: /home/user/ansible/roles/geerlingguy.nginx/tasks/setup-Debian.yml for 10.1.0.10, 10.2.0.10
+
+TASK [geerlingguy.nginx : Update apt cache.] ***********************************
+ok: [10.2.0.10]
+ok: [10.1.0.10]
+
+TASK [geerlingguy.nginx : Ensure nginx is installed.] **************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : include_tasks] ***************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Remove default nginx vhost config file (if configured).] ***
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Ensure nginx_vhost_path exists.] *********************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Add managed vhost config files.] *********************
+
+TASK [geerlingguy.nginx : Remove managed vhost config files.] ******************
+
+TASK [geerlingguy.nginx : Remove legacy vhosts.conf file.] *********************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Copy index.html] *************************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [geerlingguy.nginx : replace nginx config] ********************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [geerlingguy.nginx : restart nginx] ***************************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [geerlingguy.nginx : Ensure nginx service is running as configured.] ******
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [node_exporter : Validating arguments against arg spec 'main' - Prometheus Node Exporter] ***
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [node_exporter : Preflight] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/preflight.yml for 10.1.0.10, 10.2.0.10
+
+TASK [node_exporter : Assert usage of systemd as an init system] ***************
+ok: [10.1.0.10] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [10.2.0.10] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Install package fact dependencies] ***********************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [node_exporter : Gather package facts] ************************************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [node_exporter : Naive assertion of proper listen address] ****************
+ok: [10.1.0.10] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [10.2.0.10] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Assert collectors are not both disabled and enabled at the same time] ***
+
+TASK [node_exporter : Assert that TLS key and cert path are set] ***************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Check existence of TLS cert file] ************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Check existence of TLS key file] *************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Assert that TLS key and cert are present] ****************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Check if node_exporter is installed] *********************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [node_exporter : Gather currently installed node_exporter version (if any)] ***
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Discover latest version] *********************************
+skipping: [10.1.0.10]
+
+TASK [node_exporter : Get checksum list from github] ***************************
+ok: [10.1.0.10]
+
+TASK [node_exporter : Get checksum for amd64] **********************************
+skipping: [10.1.0.10] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [10.1.0.10] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+skipping: [10.2.0.10] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [10.1.0.10] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+skipping: [10.2.0.10] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+ok: [10.1.0.10] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [10.2.0.10] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+skipping: [10.1.0.10] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+ok: [10.2.0.10] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [10.1.0.10] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [10.2.0.10] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+skipping: [10.1.0.10] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [10.2.0.10] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [10.1.0.10] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [10.2.0.10] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [10.1.0.10] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [10.2.0.10] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [10.1.0.10] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [10.2.0.10] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [10.1.0.10] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [10.2.0.10] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [10.1.0.10] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [10.2.0.10] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [10.1.0.10] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [10.2.0.10] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [10.1.0.10] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [10.2.0.10] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [10.1.0.10] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [10.2.0.10] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [10.1.0.10] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [10.2.0.10] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [10.1.0.10] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [10.2.0.10] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [10.1.0.10] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+skipping: [10.2.0.10] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [10.2.0.10] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+
+TASK [node_exporter : Install] *************************************************
+included: /home/user/ansible/roles/node_exporter/tasks/install.yml for 10.1.0.10, 10.2.0.10
+
+TASK [node_exporter : Create the node_exporter group] **************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Create the node_exporter user] ***************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Download node_exporter binary to local folder] ***********
+ok: [10.2.0.10 -> localhost]
+ok: [10.1.0.10 -> localhost]
+
+TASK [node_exporter : Unpack node_exporter binary] *****************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Propagate node_exporter binaries] ************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Propagate locally distributed node_exporter binary] ******
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : SELinux] *************************************************
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Configure] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/configure.yml for 10.1.0.10, 10.2.0.10
+
+TASK [node_exporter : Copy the node_exporter systemd service file] *************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Create node_exporter config directory] *******************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Copy the node_exporter config file] **********************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Create textfile collector dir] ***************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [node_exporter : Allow node_exporter port in SELinux on RedHat OS family] ***
+skipping: [10.1.0.10]
+skipping: [10.2.0.10]
+
+TASK [node_exporter : Ensure Node Exporter is enabled on boot] *****************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [nginx-exporter : download nginx log exporter] ****************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [nginx-exporter : unarchive nginx log exporter] ***************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [nginx-exporter : move nginx log exporter to /usr/bin] ********************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [nginx-exporter : copy  nginx log exporter config] ************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [nginx-exporter : install unit file to systemd] ***************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Update apt cache] *********************************************
+ok: [10.1.0.10]
+ok: [10.2.0.10]
+
+TASK [filebeat : Ensure dependencies are installed.] ***************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Get filebeat 8.6.2] *******************************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Install filebeat] *********************************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Systemctl daemon reload] **************************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Copy config file for filebeat] ********************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+TASK [filebeat : Systemctl enable  filebeat] ***********************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+RUNNING HANDLER [node_exporter : Restart node_exporter] ************************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+RUNNING HANDLER [nginx-exporter : nginxlog-exporter systemd] *******************
+changed: [10.1.0.10]
+changed: [10.2.0.10]
+
+PLAY [Play prometheus] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [prometheus]
+
+TASK [node_exporter : Validating arguments against arg spec 'main' - Prometheus Node Exporter] ***
+ok: [prometheus]
+
+TASK [node_exporter : Preflight] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/preflight.yml for prometheus
+
+TASK [node_exporter : Assert usage of systemd as an init system] ***************
+ok: [prometheus] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Install package fact dependencies] ***********************
+ok: [prometheus]
+
+TASK [node_exporter : Gather package facts] ************************************
+ok: [prometheus]
+
+TASK [node_exporter : Naive assertion of proper listen address] ****************
+ok: [prometheus] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Assert collectors are not both disabled and enabled at the same time] ***
+
+TASK [node_exporter : Assert that TLS key and cert path are set] ***************
+skipping: [prometheus]
+
+TASK [node_exporter : Check existence of TLS cert file] ************************
+skipping: [prometheus]
+
+TASK [node_exporter : Check existence of TLS key file] *************************
+skipping: [prometheus]
+
+TASK [node_exporter : Assert that TLS key and cert are present] ****************
+skipping: [prometheus]
+
+TASK [node_exporter : Check if node_exporter is installed] *********************
+ok: [prometheus]
+
+TASK [node_exporter : Gather currently installed node_exporter version (if any)] ***
+skipping: [prometheus]
+
+TASK [node_exporter : Discover latest version] *********************************
+skipping: [prometheus]
+
+TASK [node_exporter : Get checksum list from github] ***************************
+ok: [prometheus]
+
+TASK [node_exporter : Get checksum for amd64] **********************************
+skipping: [prometheus] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [prometheus] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+skipping: [prometheus] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+ok: [prometheus] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [prometheus] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+skipping: [prometheus] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [prometheus] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [prometheus] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [prometheus] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [prometheus] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [prometheus] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [prometheus] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [prometheus] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [prometheus] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [prometheus] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [prometheus] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [prometheus] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [prometheus] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+
+TASK [node_exporter : Install] *************************************************
+included: /home/user/ansible/roles/node_exporter/tasks/install.yml for prometheus
+
+TASK [node_exporter : Create the node_exporter group] **************************
+changed: [prometheus]
+
+TASK [node_exporter : Create the node_exporter user] ***************************
+changed: [prometheus]
+
+TASK [node_exporter : Download node_exporter binary to local folder] ***********
+ok: [prometheus -> localhost]
+
+TASK [node_exporter : Unpack node_exporter binary] *****************************
+skipping: [prometheus]
+
+TASK [node_exporter : Propagate node_exporter binaries] ************************
+changed: [prometheus]
+
+TASK [node_exporter : Propagate locally distributed node_exporter binary] ******
+skipping: [prometheus]
+
+TASK [node_exporter : SELinux] *************************************************
+skipping: [prometheus]
+
+TASK [node_exporter : Configure] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/configure.yml for prometheus
+
+TASK [node_exporter : Copy the node_exporter systemd service file] *************
+changed: [prometheus]
+
+TASK [node_exporter : Create node_exporter config directory] *******************
+changed: [prometheus]
+
+TASK [node_exporter : Copy the node_exporter config file] **********************
+changed: [prometheus]
+
+TASK [node_exporter : Create textfile collector dir] ***************************
+changed: [prometheus]
+
+TASK [node_exporter : Allow node_exporter port in SELinux on RedHat OS family] ***
+skipping: [prometheus]
+
+TASK [node_exporter : Ensure Node Exporter is enabled on boot] *****************
+changed: [prometheus]
+
+TASK [prometheus : Validating arguments against arg spec 'main' - Installs and configures prometheus] ***
+ok: [prometheus]
+
+TASK [prometheus : Preflight] **************************************************
+included: /home/user/ansible/roles/prometheus/tasks/preflight.yml for prometheus
+
+TASK [prometheus : Assert usage of systemd as an init system] ******************
+ok: [prometheus] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prometheus : Install package fact dependencies] **************************
+ok: [prometheus]
+
+TASK [prometheus : Gather package facts] ***************************************
+skipping: [prometheus]
+
+TASK [prometheus : Assert no duplicate config flags] ***************************
+ok: [prometheus] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prometheus : Assert external_labels aren't configured twice] *************
+ok: [prometheus] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prometheus : Fail when prometheus_config_flags_extra duplicates parameters set by other variables] ***
+skipping: [prometheus] => (item=storage.tsdb.retention) 
+skipping: [prometheus] => (item=storage.tsdb.path) 
+skipping: [prometheus] => (item=storage.local.retention) 
+skipping: [prometheus] => (item=storage.local.path) 
+skipping: [prometheus] => (item=config.file) 
+skipping: [prometheus] => (item=web.listen-address) 
+skipping: [prometheus] => (item=web.external-url) 
+
+TASK [prometheus : Get all file_sd files from scrape_configs] ******************
+ok: [prometheus]
+
+TASK [prometheus : Fail when file_sd targets are not defined in scrape_configs] ***
+skipping: [prometheus] => (item={'key': 'node', 'value': [{'targets': ['10.1.0.10:9100', '10.2.0.10:9100', '10.3.0.10:9100', '10.4.0.11:9100', '10.3.0.100:9100', '10.4.0.100:9100']}]}) 
+skipping: [prometheus] => (item={'key': 'nginx', 'value': [{'targets': ['10.1.0.10:4040', '10.2.0.10:4040']}]}) 
+
+TASK [prometheus : Alert when prometheus_alertmanager_config is empty, but prometheus_alert_rules is specified] ***
+ok: [prometheus] => {
+    "msg": "No alertmanager configuration was specified. If you want your alerts to be sent make sure to specify a prometheus_alertmanager_config in defaults/main.yml.\n"
+}
+
+TASK [prometheus : Discover latest version] ************************************
+skipping: [prometheus]
+
+TASK [prometheus : Get checksum list] ******************************************
+ok: [prometheus]
+
+TASK [prometheus : Get checksum for amd64] *************************************
+skipping: [prometheus] => (item=c4741e960e27410a64ffe278e199e3cbe9df74bfea3ba56bf5ebc161eddb4b56  prometheus-2.46.0.darwin-amd64.tar.gz) 
+skipping: [prometheus] => (item=f0bfa3685e02707ccfc2a4b5839244686e40dcd75d84c574b938e1e3985812dd  prometheus-2.46.0.darwin-arm64.tar.gz) 
+skipping: [prometheus] => (item=29948a05202e31557b71f1302524d1f241d53c77d851e61b283fa81125f039a2  prometheus-2.46.0.dragonfly-amd64.tar.gz) 
+skipping: [prometheus] => (item=7bdd268d44c00381841cbb12ee72b6010d3cfd3299030649b25aa76097ab7f85  prometheus-2.46.0.freebsd-386.tar.gz) 
+skipping: [prometheus] => (item=53df08d6e9510d99d36c8d9fb1b917adf278c67424e425ba2d448c0669b8e1c7  prometheus-2.46.0.freebsd-amd64.tar.gz) 
+skipping: [prometheus] => (item=074dbd2127d37b0dc4f3886d9f9ae6456b62d9ce3a17b00684bd60386296e6ca  prometheus-2.46.0.freebsd-arm64.tar.gz) 
+skipping: [prometheus] => (item=43a096713469c8bac319fd00fc2da31821eb9eec987cf44fb4afd0c03e974e3c  prometheus-2.46.0.freebsd-armv6.tar.gz) 
+skipping: [prometheus] => (item=dae7c5526d94f2819c7a0f637f194b5e5583e031017b239ef4f93f79a6ed3f12  prometheus-2.46.0.freebsd-armv7.tar.gz) 
+skipping: [prometheus] => (item=efd5155bf0d1b995b67a6a0e792d47577754d468c2273852cd20390fbf5d52b5  prometheus-2.46.0.illumos-amd64.tar.gz) 
+skipping: [prometheus] => (item=837bb7c518bd6a1478a89fe7229aa5ae4d896c2443af0a7eae0c8f1e6bdcde09  prometheus-2.46.0.linux-386.tar.gz) 
+ok: [prometheus] => (item=d2177ea21a6f60046f9510c828d4f8969628cfd35686780b3898917ef9c268b9  prometheus-2.46.0.linux-amd64.tar.gz)
+skipping: [prometheus] => (item=f42513c9ef63d6bed652dfc2e986b49ebec714ed784ccaac78e20e0a2a5535bc  prometheus-2.46.0.linux-arm64.tar.gz) 
+skipping: [prometheus] => (item=d5f8f19df634ad5012e5ab6720a2ee181647b9212585574d50f1c1494370d3dc  prometheus-2.46.0.linux-armv5.tar.gz) 
+skipping: [prometheus] => (item=e1535c1d57612efacacbb24f2e3ae39e9b99302d756a8866b5407f72c9681280  prometheus-2.46.0.linux-armv6.tar.gz) 
+skipping: [prometheus] => (item=061e02d077b8f6022cf84fa9b358937c6ba6a1ba8e5914cf38c9a72aabbbe5ff  prometheus-2.46.0.linux-armv7.tar.gz) 
+skipping: [prometheus] => (item=c41296f69d1b794c80bcfc5162419605bae3fde7ae790510fcb737847cb9a0be  prometheus-2.46.0.linux-mips.tar.gz) 
+skipping: [prometheus] => (item=529ee6b32f13b7e98684dd1e98abe87425f80915fb3d8213660ccba6f15ed420  prometheus-2.46.0.linux-mips64.tar.gz) 
+skipping: [prometheus] => (item=8634fe0171c265463851773119c4bcc28a92275cf7450f673411adaeed122188  prometheus-2.46.0.linux-mips64le.tar.gz) 
+skipping: [prometheus] => (item=4a9bba31e4f8f578ff66bd48559a91d35c3f2956c81d3e7876e7096fac9886c0  prometheus-2.46.0.linux-mipsle.tar.gz) 
+skipping: [prometheus] => (item=7e750667cad37044e9d42c7187dba5566d8ac971ce3fbad27b789dca9c684ab8  prometheus-2.46.0.linux-ppc64.tar.gz) 
+skipping: [prometheus] => (item=96aeb15871ca5fcf9c12941965f047e2e563b7c757560d0c70ca68cf5f07f7dd  prometheus-2.46.0.linux-ppc64le.tar.gz) 
+skipping: [prometheus] => (item=3d008c0ef64dcc07fbcae41aec888108944c2aac73b9ac64d9cd1b24e6c73cf4  prometheus-2.46.0.linux-riscv64.tar.gz) 
+skipping: [prometheus] => (item=3a725fd91e8eb6742f8a878fa4d7222585741bc0aaedcbaf950f1c489d7793e4  prometheus-2.46.0.linux-s390x.tar.gz) 
+skipping: [prometheus] => (item=1e636bec387329bfa31f4fe307b191b4749185e330b3d3b78f9f97ad27cd29b3  prometheus-2.46.0.netbsd-386.tar.gz) 
+skipping: [prometheus] => (item=fb5d0e0a8e3b1dc02f8f0774d307738a72acb888f79d200c00f5a97a7482e281  prometheus-2.46.0.netbsd-amd64.tar.gz) 
+skipping: [prometheus] => (item=fafc2a73e56030f40a57b7d7b07c1631ccc4ac65abe1f517dde6068964f39df9  prometheus-2.46.0.netbsd-arm64.tar.gz) 
+skipping: [prometheus] => (item=fc7716a282e836e47223f3619eb3f1cae615ca459784213294fc41c23823958c  prometheus-2.46.0.netbsd-armv6.tar.gz) 
+skipping: [prometheus] => (item=80bc92a09e57cd3eb7549d0daff0887c7c9255d1b3b279241509f53c7073c5b8  prometheus-2.46.0.netbsd-armv7.tar.gz) 
+skipping: [prometheus] => (item=0deb3137a7a964634b8ca185ec4eeb81ae7cc9f27a8975862eb3860184a1daa0  prometheus-2.46.0.windows-386.tar.gz) 
+skipping: [prometheus] => (item=67deef00cd0fe99091fef5d7ee34dd1e6fc688713d4da3a94cdccdcd92561793  prometheus-2.46.0.windows-386.zip) 
+skipping: [prometheus] => (item=0acff7c27f34d341fd87338022e5de3536924775ac48b1ad5ebc3d2e4de18d5d  prometheus-2.46.0.windows-amd64.tar.gz) 
+skipping: [prometheus] => (item=b4ae13f26cea5d9e53c32490d61fef159f8f3094239a365cfb146698eceaa021  prometheus-2.46.0.windows-amd64.zip) 
+skipping: [prometheus] => (item=78254c454c297bd7eec431be718c57294191122e40cfcf65c8e6a87005ac7518  prometheus-2.46.0.windows-arm64.tar.gz) 
+skipping: [prometheus] => (item=5c70ed0c29638d850dc14afa97bb1df0bece6aea80bba7af2f9c7763c87e0835  prometheus-2.46.0.windows-arm64.zip) 
+skipping: [prometheus] => (item=1fa451c9e99ac2df4d44b4d51b4887e2f345362baf74f673eeee37668a74bd52  prometheus-web-ui-2.46.0.tar.gz) 
+
+TASK [prometheus : Install] ****************************************************
+included: /home/user/ansible/roles/prometheus/tasks/install.yml for prometheus
+
+TASK [prometheus : Create prometheus system group] *****************************
+changed: [prometheus]
+
+TASK [prometheus : Create prometheus system user] ******************************
+changed: [prometheus]
+
+TASK [prometheus : Create prometheus data directory] ***************************
+changed: [prometheus]
+
+TASK [prometheus : Create prometheus configuration directories] ****************
+changed: [prometheus] => (item=/etc/prometheus)
+changed: [prometheus] => (item=/etc/prometheus/rules)
+changed: [prometheus] => (item=/etc/prometheus/file_sd)
+
+TASK [prometheus : Download prometheus binary to local folder] *****************
+ok: [prometheus -> localhost]
+
+TASK [prometheus : Unpack prometheus binaries] *********************************
+skipping: [prometheus]
+
+TASK [prometheus : Propagate official prometheus and promtool binaries] ********
+changed: [prometheus] => (item=prometheus)
+changed: [prometheus] => (item=promtool)
+
+TASK [prometheus : Propagate official console templates] ***********************
+changed: [prometheus] => (item=console_libraries)
+changed: [prometheus] => (item=consoles)
+
+TASK [prometheus : Propagate locally distributed prometheus and promtool binaries] ***
+skipping: [prometheus] => (item=prometheus) 
+skipping: [prometheus] => (item=promtool) 
+
+TASK [prometheus : Create systemd service unit] ********************************
+changed: [prometheus]
+
+TASK [prometheus : Install SELinux dependencies] *******************************
+skipping: [prometheus]
+
+TASK [prometheus : Allow prometheus to bind to port in SELinux] ****************
+skipping: [prometheus]
+
+TASK [prometheus : Configure] **************************************************
+included: /home/user/ansible/roles/prometheus/tasks/configure.yml for prometheus
+
+TASK [prometheus : Alerting rules file] ****************************************
+changed: [prometheus]
+
+TASK [prometheus : Copy custom alerting rule files] ****************************
+
+TASK [prometheus : Configure prometheus] ***************************************
+changed: [prometheus]
+
+TASK [prometheus : Configure Prometheus web] ***********************************
+changed: [prometheus]
+
+TASK [prometheus : Configure prometheus static targets] ************************
+changed: [prometheus] => (item={'key': 'node', 'value': [{'targets': ['10.1.0.10:9100', '10.2.0.10:9100', '10.3.0.10:9100', '10.4.0.11:9100', '10.3.0.100:9100', '10.4.0.100:9100']}]})
+changed: [prometheus] => (item={'key': 'nginx', 'value': [{'targets': ['10.1.0.10:4040', '10.2.0.10:4040']}]})
+
+TASK [prometheus : Copy prometheus custom static targets] **********************
+
+TASK [prometheus : Ensure prometheus service is started and enabled] ***********
+changed: [prometheus]
+
+RUNNING HANDLER [node_exporter : Restart node_exporter] ************************
+changed: [prometheus]
+
+RUNNING HANDLER [prometheus : Restart prometheus] ******************************
+changed: [prometheus]
+
+RUNNING HANDLER [prometheus : Reload prometheus] *******************************
+changed: [prometheus]
+
+PLAY [Play grafana] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [grafana]
+
+TASK [node_exporter : Validating arguments against arg spec 'main' - Prometheus Node Exporter] ***
+ok: [grafana]
+
+TASK [node_exporter : Preflight] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/preflight.yml for grafana
+
+TASK [node_exporter : Assert usage of systemd as an init system] ***************
+ok: [grafana] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Install package fact dependencies] ***********************
+ok: [grafana]
+
+TASK [node_exporter : Gather package facts] ************************************
+ok: [grafana]
+
+TASK [node_exporter : Naive assertion of proper listen address] ****************
+ok: [grafana] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Assert collectors are not both disabled and enabled at the same time] ***
+
+TASK [node_exporter : Assert that TLS key and cert path are set] ***************
+skipping: [grafana]
+
+TASK [node_exporter : Check existence of TLS cert file] ************************
+skipping: [grafana]
+
+TASK [node_exporter : Check existence of TLS key file] *************************
+skipping: [grafana]
+
+TASK [node_exporter : Assert that TLS key and cert are present] ****************
+skipping: [grafana]
+
+TASK [node_exporter : Check if node_exporter is installed] *********************
+ok: [grafana]
+
+TASK [node_exporter : Gather currently installed node_exporter version (if any)] ***
+skipping: [grafana]
+
+TASK [node_exporter : Discover latest version] *********************************
+skipping: [grafana]
+
+TASK [node_exporter : Get checksum list from github] ***************************
+ok: [grafana]
+
+TASK [node_exporter : Get checksum for amd64] **********************************
+skipping: [grafana] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [grafana] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+skipping: [grafana] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+ok: [grafana] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [grafana] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+skipping: [grafana] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [grafana] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [grafana] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [grafana] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [grafana] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [grafana] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [grafana] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [grafana] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [grafana] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [grafana] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [grafana] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [grafana] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [grafana] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+
+TASK [node_exporter : Install] *************************************************
+included: /home/user/ansible/roles/node_exporter/tasks/install.yml for grafana
+
+TASK [node_exporter : Create the node_exporter group] **************************
+changed: [grafana]
+
+TASK [node_exporter : Create the node_exporter user] ***************************
+changed: [grafana]
+
+TASK [node_exporter : Download node_exporter binary to local folder] ***********
+ok: [grafana -> localhost]
+
+TASK [node_exporter : Unpack node_exporter binary] *****************************
+skipping: [grafana]
+
+TASK [node_exporter : Propagate node_exporter binaries] ************************
+changed: [grafana]
+
+TASK [node_exporter : Propagate locally distributed node_exporter binary] ******
+skipping: [grafana]
+
+TASK [node_exporter : SELinux] *************************************************
+skipping: [grafana]
+
+TASK [node_exporter : Configure] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/configure.yml for grafana
+
+TASK [node_exporter : Copy the node_exporter systemd service file] *************
+changed: [grafana]
+
+TASK [node_exporter : Create node_exporter config directory] *******************
+changed: [grafana]
+
+TASK [node_exporter : Copy the node_exporter config file] **********************
+changed: [grafana]
+
+TASK [node_exporter : Create textfile collector dir] ***************************
+changed: [grafana]
+
+TASK [node_exporter : Allow node_exporter port in SELinux on RedHat OS family] ***
+skipping: [grafana]
+
+TASK [node_exporter : Ensure Node Exporter is enabled on boot] *****************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Gather variables for each operating system] *******
+ok: [grafana] => (item=/home/user/ansible/roles/cloudalchemy.grafana/vars/debian.yml)
+
+TASK [cloudalchemy.grafana : Check variable types] *****************************
+ok: [grafana] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [cloudalchemy.grafana : Fail when datasources aren't configured when dashboards are set to be installed] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail when grafana admin user isn't set] ***********
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail when grafana admin password isn't set] *******
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail on incorrect variable types in datasource definitions] ***
+skipping: [grafana] => (item={'name': 'prometheus', 'type': 'prometheus', 'access': 'proxy', 'url': 'http://10.3.0.10:9090', 'basicAuth': False}) 
+
+TASK [cloudalchemy.grafana : Fail on bad database configuration] ***************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail when grafana domain isn't properly configured] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail when grafana_api_keys uses invalid role names] ***
+
+TASK [cloudalchemy.grafana : Fail when grafana_ldap isn't set when grafana_auth.ldap is] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Force grafana_use_provisioning to false if grafana_version is < 5.0 ( grafana_version is set to '10.1.1' )] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail if grafana_port is lower than 1024 and grafana_cap_net_bind_service is not true] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Fail if grafana_server.socket not defined when in socket mode] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Update apt cache] *********************************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Install dependencies] *****************************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Remove conflicting grafana packages] **************
+ok: [grafana]
+
+TASK [cloudalchemy.grafana : Clean apt cache] **********************************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : install Grafana] **********************************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Ensure grafana configuration directories exist] ***
+changed: [grafana] => (item=/etc/grafana)
+changed: [grafana] => (item=/etc/grafana/datasources)
+ok: [grafana] => (item=/etc/grafana/provisioning)
+ok: [grafana] => (item=/etc/grafana/provisioning/datasources)
+ok: [grafana] => (item=/etc/grafana/provisioning/dashboards)
+ok: [grafana] => (item=/etc/grafana/provisioning/notifiers)
+ok: [grafana] => (item=/etc/grafana/provisioning/plugins)
+
+TASK [cloudalchemy.grafana : Create grafana main configuration file] ***********
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Create grafana LDAP configuration file] ***********
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Create grafana directories] ***********************
+ok: [grafana] => (item=/var/log/grafana)
+ok: [grafana] => (item=/var/lib/grafana)
+changed: [grafana] => (item=/var/lib/grafana/dashboards)
+changed: [grafana] => (item=/var/lib/grafana/plugins)
+
+TASK [cloudalchemy.grafana : Create grafana socket directory] ******************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Ensure grafana socket directory created on startup] ***
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Enable grafana to ports lower than port 1024] *****
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Enable and start Grafana systemd unit] ************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Check which plugins are installed] ****************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Install plugins] **********************************
+
+TASK [cloudalchemy.grafana : Restart grafana before configuring datasources and dashboards] ***
+
+RUNNING HANDLER [node_exporter : Restart node_exporter] ************************
+changed: [grafana]
+
+RUNNING HANDLER [cloudalchemy.grafana : restart grafana] ***********************
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Wait for grafana to start (http/s)] ***************
+ok: [grafana]
+
+TASK [cloudalchemy.grafana : Wait for grafana to start (socket)] ***************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Ensure grafana key directory exists] **************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Check api key list] *******************************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Create grafana api keys] **************************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Create api keys file to allow the keys to be seen and used by other automation] ***
+
+TASK [cloudalchemy.grafana : Ensure datasources exist (via API)] ***************
+skipping: [grafana] => (item={'name': 'prometheus', 'type': 'prometheus', 'access': 'proxy', 'url': 'http://10.3.0.10:9090', 'basicAuth': False}) 
+
+TASK [cloudalchemy.grafana : Create/Update datasources file (provisioning)] ****
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Create/Delete/Update alert notifications channels (provisioning)] ***
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Check if there are any dashboards in local dashboards] ***
+ok: [grafana]
+
+TASK [cloudalchemy.grafana : Create local grafana dashboard directory] *********
+ok: [grafana -> localhost]
+
+TASK [cloudalchemy.grafana : download grafana dashboard from grafana.net to local directory] ***
+ok: [grafana -> localhost] => (item={'dashboard_id': 1860, 'revision_id': 31, 'datasource': 'prometheus'})
+ok: [grafana -> localhost] => (item={'dashboard_id': 15947, 'revision_id': 1, 'datasource': 'prometheus'})
+
+TASK [cloudalchemy.grafana : Set the correct data source name in the dashboard] ***
+ok: [grafana -> localhost] => (item={'dashboard_id': 1860, 'revision_id': 31, 'datasource': 'prometheus'})
+ok: [grafana -> localhost] => (item={'dashboard_id': 15947, 'revision_id': 1, 'datasource': 'prometheus'})
+
+TASK [cloudalchemy.grafana : Import grafana dashboards through API] ************
+skipping: [grafana] => (item=None) 
+skipping: [grafana] => (item=None) 
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Create/Update dashboards file (provisioning)] *****
+changed: [grafana]
+
+TASK [cloudalchemy.grafana : Register previously copied dashboards] ************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Import grafana dashboards] ************************
+changed: [grafana] => (item=/tmp/ansible.ehinp0w5/1860.json)
+changed: [grafana] => (item=/tmp/ansible.ehinp0w5/15947.json)
+
+TASK [cloudalchemy.grafana : Get dashboard lists] ******************************
+skipping: [grafana]
+
+TASK [cloudalchemy.grafana : Remove dashboards not present on deployer machine (synchronize)] ***
+skipping: [grafana]
+
+RUNNING HANDLER [cloudalchemy.grafana : restart grafana] ***********************
+changed: [grafana]
+
+RUNNING HANDLER [cloudalchemy.grafana : Set privileges on provisioned dashboards] ***
+changed: [grafana]
+
+RUNNING HANDLER [cloudalchemy.grafana : Set privileges on provisioned dashboards directory] ***
+changed: [grafana]
+
+PLAY [Play elasticsearch] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [elasticsearch]
+
+TASK [elasticsearch : Update apt cache] ****************************************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Ensure dependencies are installed.] **********************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Get elasticsearch 8.6.2] *********************************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Install elasticsearch] ***********************************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Copy config file for elasticsearch] **********************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Systemctl daemon reload] *********************************
+changed: [elasticsearch]
+
+TASK [elasticsearch : Systemctl enable elasticsearch] **************************
+changed: [elasticsearch]
+
+TASK [node_exporter : Validating arguments against arg spec 'main' - Prometheus Node Exporter] ***
+ok: [elasticsearch]
+
+TASK [node_exporter : Preflight] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/preflight.yml for elasticsearch
+
+TASK [node_exporter : Assert usage of systemd as an init system] ***************
+ok: [elasticsearch] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Install package fact dependencies] ***********************
+ok: [elasticsearch]
+
+TASK [node_exporter : Gather package facts] ************************************
+ok: [elasticsearch]
+
+TASK [node_exporter : Naive assertion of proper listen address] ****************
+ok: [elasticsearch] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Assert collectors are not both disabled and enabled at the same time] ***
+
+TASK [node_exporter : Assert that TLS key and cert path are set] ***************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Check existence of TLS cert file] ************************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Check existence of TLS key file] *************************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Assert that TLS key and cert are present] ****************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Check if node_exporter is installed] *********************
+ok: [elasticsearch]
+
+TASK [node_exporter : Gather currently installed node_exporter version (if any)] ***
+skipping: [elasticsearch]
+
+TASK [node_exporter : Discover latest version] *********************************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Get checksum list from github] ***************************
+ok: [elasticsearch]
+
+TASK [node_exporter : Get checksum for amd64] **********************************
+skipping: [elasticsearch] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [elasticsearch] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+skipping: [elasticsearch] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+ok: [elasticsearch] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [elasticsearch] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+skipping: [elasticsearch] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [elasticsearch] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [elasticsearch] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [elasticsearch] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [elasticsearch] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [elasticsearch] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [elasticsearch] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [elasticsearch] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [elasticsearch] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [elasticsearch] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [elasticsearch] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [elasticsearch] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [elasticsearch] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+
+TASK [node_exporter : Install] *************************************************
+included: /home/user/ansible/roles/node_exporter/tasks/install.yml for elasticsearch
+
+TASK [node_exporter : Create the node_exporter group] **************************
+changed: [elasticsearch]
+
+TASK [node_exporter : Create the node_exporter user] ***************************
+changed: [elasticsearch]
+
+TASK [node_exporter : Download node_exporter binary to local folder] ***********
+ok: [elasticsearch -> localhost]
+
+TASK [node_exporter : Unpack node_exporter binary] *****************************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Propagate node_exporter binaries] ************************
+changed: [elasticsearch]
+
+TASK [node_exporter : Propagate locally distributed node_exporter binary] ******
+skipping: [elasticsearch]
+
+TASK [node_exporter : SELinux] *************************************************
+skipping: [elasticsearch]
+
+TASK [node_exporter : Configure] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/configure.yml for elasticsearch
+
+TASK [node_exporter : Copy the node_exporter systemd service file] *************
+changed: [elasticsearch]
+
+TASK [node_exporter : Create node_exporter config directory] *******************
+changed: [elasticsearch]
+
+TASK [node_exporter : Copy the node_exporter config file] **********************
+changed: [elasticsearch]
+
+TASK [node_exporter : Create textfile collector dir] ***************************
+changed: [elasticsearch]
+
+TASK [node_exporter : Allow node_exporter port in SELinux on RedHat OS family] ***
+skipping: [elasticsearch]
+
+TASK [node_exporter : Ensure Node Exporter is enabled on boot] *****************
+changed: [elasticsearch]
+
+RUNNING HANDLER [node_exporter : Restart node_exporter] ************************
+changed: [elasticsearch]
+
+PLAY [Play kibana] *************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kibana]
+
+TASK [kibana : Update apt cache] ***********************************************
+changed: [kibana]
+
+TASK [kibana : Ensure dependencies are installed.] *****************************
+changed: [kibana]
+
+TASK [kibana : Get kibana.8.6.2] ***********************************************
+changed: [kibana]
+
+TASK [kibana : Install kibana] *************************************************
+changed: [kibana]
+
+TASK [kibana : Systemctl daemon reload] ****************************************
+changed: [kibana]
+
+TASK [kibana : Copy config file for kibana] ************************************
+changed: [kibana]
+
+TASK [kibana : Systemctl enable  kibana] ***************************************
+changed: [kibana]
+
+TASK [node_exporter : Validating arguments against arg spec 'main' - Prometheus Node Exporter] ***
+ok: [kibana]
+
+TASK [node_exporter : Preflight] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/preflight.yml for kibana
+
+TASK [node_exporter : Assert usage of systemd as an init system] ***************
+ok: [kibana] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Install package fact dependencies] ***********************
+ok: [kibana]
+
+TASK [node_exporter : Gather package facts] ************************************
+ok: [kibana]
+
+TASK [node_exporter : Naive assertion of proper listen address] ****************
+ok: [kibana] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [node_exporter : Assert collectors are not both disabled and enabled at the same time] ***
+
+TASK [node_exporter : Assert that TLS key and cert path are set] ***************
+skipping: [kibana]
+
+TASK [node_exporter : Check existence of TLS cert file] ************************
+skipping: [kibana]
+
+TASK [node_exporter : Check existence of TLS key file] *************************
+skipping: [kibana]
+
+TASK [node_exporter : Assert that TLS key and cert are present] ****************
+skipping: [kibana]
+
+TASK [node_exporter : Check if node_exporter is installed] *********************
+ok: [kibana]
+
+TASK [node_exporter : Gather currently installed node_exporter version (if any)] ***
+skipping: [kibana]
+
+TASK [node_exporter : Discover latest version] *********************************
+skipping: [kibana]
+
+TASK [node_exporter : Get checksum list from github] ***************************
+ok: [kibana]
+
+TASK [node_exporter : Get checksum for amd64] **********************************
+skipping: [kibana] => (item=22f2ee3f881ff992d7501ea5ed75317113cc381fd90b8f20d9eea109a0b1c2a7  node_exporter-1.6.1.darwin-amd64.tar.gz) 
+skipping: [kibana] => (item=89e56048c73b316939ffda74b69983fab60399e44e24a21788fcc104150a88f7  node_exporter-1.6.1.darwin-arm64.tar.gz) 
+skipping: [kibana] => (item=e81a7aeecc2b7dc771b77b999e89884fab83c129818a0631f4a3ecf7279a3612  node_exporter-1.6.1.linux-386.tar.gz) 
+ok: [kibana] => (item=ecc41b3b4d53f7b9c16a370419a25a133e48c09dfc49499d63bcc0c5e0cf3d01  node_exporter-1.6.1.linux-amd64.tar.gz)
+skipping: [kibana] => (item=f99ea62cec600bca5c926d300522d7a3bb797592d70dc1bcdc20b57811f1d439  node_exporter-1.6.1.linux-arm64.tar.gz) 
+skipping: [kibana] => (item=dbb0a44401d304009af03f437c854a401bfe7597a4b69cb7fc6700793088065b  node_exporter-1.6.1.linux-armv5.tar.gz) 
+skipping: [kibana] => (item=7e7999318a165bd2e71e734ec6b86570212bec5078d478c4803d19c96e832197  node_exporter-1.6.1.linux-armv6.tar.gz) 
+skipping: [kibana] => (item=9212d3c7b10f7ff904ed2dda038fddf4a4cc2f5cc4ebb4afe83f9159b5bbc5bb  node_exporter-1.6.1.linux-armv7.tar.gz) 
+skipping: [kibana] => (item=5f3f8a874617b9c2c8c174fef8d46d815f6d384622728eaf13c6ad498af9c9df  node_exporter-1.6.1.linux-mips.tar.gz) 
+skipping: [kibana] => (item=cff89d90b22c6c16723bfa7d5ed1bb5d245f41fd0b1ef7810cf2d606208c0ed7  node_exporter-1.6.1.linux-mips64.tar.gz) 
+skipping: [kibana] => (item=207df09b72d2dbccdabee0154a3d292a140e26925d61ae6e31015716c7868783  node_exporter-1.6.1.linux-mips64le.tar.gz) 
+skipping: [kibana] => (item=75e3675ed8286ba8274552f9ea83ae8a70c312ffefd7f1687a1ac88bf0d5d1d3  node_exporter-1.6.1.linux-mipsle.tar.gz) 
+skipping: [kibana] => (item=3956593d3bb5b351cb8e415124d0fc40ec9010fb6450dd6e29d7823f2673a02a  node_exporter-1.6.1.linux-ppc64.tar.gz) 
+skipping: [kibana] => (item=f8ef54b6b6c899c9b81ad0150612d897be8d88f8ef17ab70d3a82f7bc36b0dd0  node_exporter-1.6.1.linux-ppc64le.tar.gz) 
+skipping: [kibana] => (item=3c2d3b8f4da2adda2897195257fc5a633795811893ac11208f525bfb75402734  node_exporter-1.6.1.linux-s390x.tar.gz) 
+skipping: [kibana] => (item=ca451a30e06dc57d0f964573199b1fbf652878b82e2c5d59062ce6c3169b8417  node_exporter-1.6.1.netbsd-386.tar.gz) 
+skipping: [kibana] => (item=a51c98f74a0b3c9bf4f12674de8f8648054cdf3d2b9c1dbf1fd6e570eae4208d  node_exporter-1.6.1.netbsd-amd64.tar.gz) 
+skipping: [kibana] => (item=486d8e79facc8734ffb35eb195e181f003938a6680643e5f8360b9980248d1ac  node_exporter-1.6.1.openbsd-amd64.tar.gz) 
+
+TASK [node_exporter : Install] *************************************************
+included: /home/user/ansible/roles/node_exporter/tasks/install.yml for kibana
+
+TASK [node_exporter : Create the node_exporter group] **************************
+changed: [kibana]
+
+TASK [node_exporter : Create the node_exporter user] ***************************
+changed: [kibana]
+
+TASK [node_exporter : Download node_exporter binary to local folder] ***********
+ok: [kibana -> localhost]
+
+TASK [node_exporter : Unpack node_exporter binary] *****************************
+skipping: [kibana]
+
+TASK [node_exporter : Propagate node_exporter binaries] ************************
+changed: [kibana]
+
+TASK [node_exporter : Propagate locally distributed node_exporter binary] ******
+skipping: [kibana]
+
+TASK [node_exporter : SELinux] *************************************************
+skipping: [kibana]
+
+TASK [node_exporter : Configure] ***********************************************
+included: /home/user/ansible/roles/node_exporter/tasks/configure.yml for kibana
+
+TASK [node_exporter : Copy the node_exporter systemd service file] *************
+changed: [kibana]
+
+TASK [node_exporter : Create node_exporter config directory] *******************
+changed: [kibana]
+
+TASK [node_exporter : Copy the node_exporter config file] **********************
+changed: [kibana]
+
+TASK [node_exporter : Create textfile collector dir] ***************************
+changed: [kibana]
+
+TASK [node_exporter : Allow node_exporter port in SELinux on RedHat OS family] ***
+skipping: [kibana]
+
+TASK [node_exporter : Ensure Node Exporter is enabled on boot] *****************
+changed: [kibana]
+
+RUNNING HANDLER [node_exporter : Restart node_exporter] ************************
+changed: [kibana]
+
+PLAY RECAP *********************************************************************
+10.1.0.10                  : ok=48   changed=26   unreachable=0    failed=0    skipped=19   rescued=0    ignored=0   
+10.2.0.10                  : ok=47   changed=26   unreachable=0    failed=0    skipped=18   rescued=0    ignored=0   
+elasticsearch              : ok=31   changed=17   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+grafana                    : ok=47   changed=25   unreachable=0    failed=0    skipped=39   rescued=0    ignored=0   
+kibana                     : ok=31   changed=17   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+prometheus                 : ok=51   changed=24   unreachable=0    failed=0    skipped=21   rescued=0    ignored=0   
+

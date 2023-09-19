@@ -10,7 +10,7 @@ resource "yandex_compute_instance" "prometheus" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8456n7d102l8p6ipgl" #Debian 11
+      image_id = var.image_id
       type     = "network-ssd"
       size     = "16"    
       }

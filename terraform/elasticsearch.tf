@@ -4,14 +4,16 @@ resource "yandex_compute_instance" "elasticsearch" {
   zone        = "ru-central1-c"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = 4
+    memory = 8
   }
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
-    }
+      image_id = var.image_id
+      type     = "network-ssd"
+      size     = "16"    
+      }
   }
 
   network_interface {

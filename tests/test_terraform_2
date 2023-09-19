@@ -1,0 +1,1408 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # local_file.hosts[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "local_file" "hosts" {
+      [32m+[0m [0m[1m[0mcontent[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_base64sha256[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_base64sha512[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_md5[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha1[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha256[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha512[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mdirectory_permission[0m[0m = "0777"
+      [32m+[0m [0m[1m[0mfile_permission[0m[0m      = "0777"
+      [32m+[0m [0m[1m[0mfilename[0m[0m             = "/home/user/ansible/hosts"
+      [32m+[0m [0m[1m[0mid[0m[0m                   = (known after apply)
+    }
+
+[1m  # local_file.nginx[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "local_file" "nginx" {
+      [32m+[0m [0m[1m[0mcontent[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_base64sha256[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_base64sha512[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_md5[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha1[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha256[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mcontent_sha512[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mdirectory_permission[0m[0m = "0777"
+      [32m+[0m [0m[1m[0mfile_permission[0m[0m      = "0777"
+      [32m+[0m [0m[1m[0mfilename[0m[0m             = "/home/user/ansible/roles/geerlingguy.nginx/files/index.html"
+      [32m+[0m [0m[1m[0mid[0m[0m                   = (known after apply)
+    }
+
+[1m  # yandex_alb_backend_group.backend-group[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_alb_backend_group" "backend-group" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "backend-group"
+
+      [32m+[0m [0mhttp_backend {
+          [32m+[0m [0m[1m[0mname[0m[0m             = "backend"
+          [32m+[0m [0m[1m[0mport[0m[0m             = 80
+          [32m+[0m [0m[1m[0mtarget_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mweight[0m[0m           = 1
+
+          [32m+[0m [0mhealthcheck {
+              [32m+[0m [0m[1m[0mhealthy_threshold[0m[0m   = 10
+              [32m+[0m [0m[1m[0minterval[0m[0m            = "2s"
+              [32m+[0m [0m[1m[0mtimeout[0m[0m             = "10s"
+              [32m+[0m [0m[1m[0munhealthy_threshold[0m[0m = 15
+
+              [32m+[0m [0mhttp_healthcheck {
+                  [32m+[0m [0m[1m[0mpath[0m[0m = "/"
+                }
+            }
+
+          [32m+[0m [0mload_balancing_config {
+              [32m+[0m [0m[1m[0mmode[0m[0m            = "ROUND_ROBIN"
+              [32m+[0m [0m[1m[0mpanic_threshold[0m[0m = 90
+            }
+        }
+    }
+
+[1m  # yandex_alb_http_router.router[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_alb_http_router" "router" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "router"
+    }
+
+[1m  # yandex_alb_load_balancer.load-balancer[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_alb_load_balancer" "load-balancer" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mlog_group_id[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m               = "load-balancer"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m             = (known after apply)
+
+      [32m+[0m [0mallocation_policy {
+          [32m+[0m [0mlocation {
+              [32m+[0m [0m[1m[0mdisable_traffic[0m[0m = false
+              [32m+[0m [0m[1m[0msubnet_id[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mzone_id[0m[0m         = "ru-central1-c"
+            }
+        }
+
+      [32m+[0m [0mlistener {
+          [32m+[0m [0m[1m[0mname[0m[0m = "listener-1"
+
+          [32m+[0m [0mendpoint {
+              [32m+[0m [0m[1m[0mports[0m[0m = [
+                  [32m+[0m [0m80,
+                ]
+
+              [32m+[0m [0maddress {
+                  [32m+[0m [0mexternal_ipv4_address {
+                      [32m+[0m [0m[1m[0maddress[0m[0m = (known after apply)
+                    }
+                }
+            }
+
+          [32m+[0m [0mhttp {
+              [32m+[0m [0mhandler {
+                  [32m+[0m [0m[1m[0mallow_http10[0m[0m       = false
+                  [32m+[0m [0m[1m[0mhttp_router_id[0m[0m     = (known after apply)
+                  [32m+[0m [0m[1m[0mrewrite_request_id[0m[0m = false
+                }
+            }
+        }
+    }
+
+[1m  # yandex_alb_target_group.tg-group[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_alb_target_group" "tg-group" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "tg-group"
+
+      [32m+[0m [0mtarget {
+          [32m+[0m [0m[1m[0mip_address[0m[0m = "10.1.0.10"
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m  = (known after apply)
+        }
+      [32m+[0m [0mtarget {
+          [32m+[0m [0m[1m[0mip_address[0m[0m = "10.2.0.10"
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m  = (known after apply)
+        }
+    }
+
+[1m  # yandex_alb_virtual_host.router-host[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_alb_virtual_host" "router-host" {
+      [32m+[0m [0m[1m[0mhttp_router_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "router-host"
+
+      [32m+[0m [0mroute {
+          [32m+[0m [0m[1m[0mname[0m[0m = "route"
+
+          [32m+[0m [0mhttp_route {
+
+              [32m+[0m [0mhttp_match {
+                  [32m+[0m [0mpath {
+                      [32m+[0m [0m[1m[0mprefix[0m[0m = "/"
+                    }
+                }
+
+              [32m+[0m [0mhttp_route_action {
+                  [32m+[0m [0m[1m[0mbackend_group_id[0m[0m = (known after apply)
+                  [32m+[0m [0m[1m[0mtimeout[0m[0m          = "3s"
+                }
+            }
+        }
+    }
+
+[1m  # yandex_compute_instance.bastion[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "bastion" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "bastion"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "bastion"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-c"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.4.0.10"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = true
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.elasticsearch[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "elasticsearch" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "elasticsearch"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "elasticsearch"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-c"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.3.0.100"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = false
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 4
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 8
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.grafana[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "grafana" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "grafana"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "grafana"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-c"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.4.0.11"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = true
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.kibana[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "kibana" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "kibana"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "kibana"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-c"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.4.0.100"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = true
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.prometheus[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "prometheus" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "prometheus"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "prometheus"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-c"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.3.0.10"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = false
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.web-servers["web-1"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "web-servers" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "web-1"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "web-1"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-a"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.1.0.10"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = false
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_instance.web-servers["web-2"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_instance" "web-servers" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mfqdn[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0mgpu_cluster_id[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mhostname[0m[0m                  = "web-2"
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mmetadata[0m[0m                  = {
+          [32m+[0m [0m"user-data" = <<-EOT
+                #cloud-config
+                
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa  AAAAB3NzaC1yc2EAAAADAQABAAABAQDBSxfhsLFf7MuLLfYJ63IpnAy7+h2gSuIV/5YIhqFsxO7FMeC2PyN/5lCKvYkxzcDX7avSNLb1KnRb8jpscCLWziXwvv6liuWtVl6pUX4mtOSX9nNtQJXI6Mc3ARYBPwGgpgHo4RRZoPidl7b6bHP8Bc5jsJ+G5qY9taawOFRrNFs0vjiMuSLLgtkjK626uLKdo5wRjaaea8Ou8btWkxd9syQoAP6FjNkIkKq+rN63mTEz1WkTkp5kx3cLtbsmtPj4oU8AdA8zf0y5Aap645EvMZFUhqWv0slM7K5n2rlx/YKTLBbIDCdVz3cZE3kUH+q1SZmQ3ogb8OPqmePDC23X user@makhotaev
+                
+            EOT
+        }
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "web-2"
+      [32m+[0m [0m[1m[0mnetwork_acceleration_type[0m[0m = "standard"
+      [32m+[0m [0m[1m[0mplatform_id[0m[0m               = "standard-v1"
+      [32m+[0m [0m[1m[0mservice_account_id[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m                      = "ru-central1-b"
+
+      [32m+[0m [0mboot_disk {
+          [32m+[0m [0m[1m[0mauto_delete[0m[0m = true
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_id[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mmode[0m[0m        = (known after apply)
+
+          [32m+[0m [0minitialize_params {
+              [32m+[0m [0m[1m[0mblock_size[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mdescription[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_id[0m[0m    = "fd81ojtctf7kjqa3au3i"
+              [32m+[0m [0m[1m[0mname[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0msize[0m[0m        = 16
+              [32m+[0m [0m[1m[0msnapshot_id[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mtype[0m[0m        = "network-ssd"
+            }
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0maws_v1_http_endpoint[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0maws_v1_http_token[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_endpoint[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mgce_http_token[0m[0m       = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mindex[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mip_address[0m[0m         = "10.2.0.10"
+          [32m+[0m [0m[1m[0mipv4[0m[0m               = true
+          [32m+[0m [0m[1m[0mipv6[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mipv6_address[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmac_address[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mnat[0m[0m                = false
+          [32m+[0m [0m[1m[0mnat_ip_address[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mnat_ip_version[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0msecurity_group_ids[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0msubnet_id[0m[0m          = (known after apply)
+        }
+
+      [32m+[0m [0mplacement_policy {
+          [32m+[0m [0m[1m[0mhost_affinity_rules[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mplacement_group_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mresources {
+          [32m+[0m [0m[1m[0mcore_fraction[0m[0m = 100
+          [32m+[0m [0m[1m[0mcores[0m[0m         = 2
+          [32m+[0m [0m[1m[0mmemory[0m[0m        = 2
+        }
+
+      [32m+[0m [0mscheduling_policy {
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # yandex_compute_snapshot_schedule.snapshot[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_snapshot_schedule" "snapshot" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdisk_ids[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "snapshot"
+      [32m+[0m [0m[1m[0msnapshot_count[0m[0m = 7
+      [32m+[0m [0m[1m[0mstatus[0m[0m         = (known after apply)
+
+      [32m+[0m [0mschedule_policy {
+          [32m+[0m [0m[1m[0mexpression[0m[0m = "0 15 ? * *"
+          [32m+[0m [0m[1m[0mstart_at[0m[0m   = (known after apply)
+        }
+
+      [32m+[0m [0msnapshot_spec {
+          [32m+[0m [0m[1m[0mdescription[0m[0m = "daily-snapshot"
+        }
+    }
+
+[1m  # yandex_compute_snapshot_schedule.snapshot2["web-1"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_snapshot_schedule" "snapshot2" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdisk_ids[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "snapshot-web-1"
+      [32m+[0m [0m[1m[0msnapshot_count[0m[0m = 7
+      [32m+[0m [0m[1m[0mstatus[0m[0m         = (known after apply)
+
+      [32m+[0m [0mschedule_policy {
+          [32m+[0m [0m[1m[0mexpression[0m[0m = "0 0 ? * *"
+          [32m+[0m [0m[1m[0mstart_at[0m[0m   = (known after apply)
+        }
+
+      [32m+[0m [0msnapshot_spec {
+          [32m+[0m [0m[1m[0mdescription[0m[0m = "daily-snapshot"
+        }
+    }
+
+[1m  # yandex_compute_snapshot_schedule.snapshot2["web-2"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_compute_snapshot_schedule" "snapshot2" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdisk_ids[0m[0m       = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "snapshot-web-2"
+      [32m+[0m [0m[1m[0msnapshot_count[0m[0m = 7
+      [32m+[0m [0m[1m[0mstatus[0m[0m         = (known after apply)
+
+      [32m+[0m [0mschedule_policy {
+          [32m+[0m [0m[1m[0mexpression[0m[0m = "0 0 ? * *"
+          [32m+[0m [0m[1m[0mstart_at[0m[0m   = (known after apply)
+        }
+
+      [32m+[0m [0msnapshot_spec {
+          [32m+[0m [0m[1m[0mdescription[0m[0m = "daily-snapshot"
+        }
+    }
+
+[1m  # yandex_vpc_gateway.nat_gateway[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_gateway" "nat_gateway" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "test-gateway"
+
+      [32m+[0m [0mshared_egress_gateway {}
+    }
+
+[1m  # yandex_vpc_network.main-network[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_network" "main-network" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mdefault_security_group_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m               = "network for diplom"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                        = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                      = "main-network"
+      [32m+[0m [0m[1m[0msubnet_ids[0m[0m                = (known after apply)
+    }
+
+[1m  # yandex_vpc_route_table.route_table[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_route_table" "route_table" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+
+      [32m+[0m [0mstatic_route {
+          [32m+[0m [0m[1m[0mdestination_prefix[0m[0m = "0.0.0.0/0"
+          [32m+[0m [0m[1m[0mgateway_id[0m[0m         = (known after apply)
+        }
+    }
+
+[1m  # yandex_vpc_security_group.bastion-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "bastion-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "bastion-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m     = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any outgoing connection"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any ping"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ICMP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any ssh incoming connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = 22
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "TCP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+    }
+
+[1m  # yandex_vpc_security_group.elasticsearch-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "elasticsearch-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "Elasticsearch security group"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "elasticsearch-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m      = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "Rule out"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m       = "Rule for bastion ssh"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m         = -1
+          [32m+[0m [0m[1m[0mid[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m              = 22
+          [32m+[0m [0m[1m[0mprotocol[0m[0m          = "TCP"
+          [32m+[0m [0m[1m[0msecurity_group_id[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mto_port[0m[0m           = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m    = []
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m    = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m       = "Rule for kibana"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m         = -1
+          [32m+[0m [0m[1m[0mid[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m              = 9200
+          [32m+[0m [0m[1m[0mprotocol[0m[0m          = "TCP"
+          [32m+[0m [0m[1m[0msecurity_group_id[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mto_port[0m[0m           = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m    = []
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m    = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m       = "Rule for web"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m         = -1
+          [32m+[0m [0m[1m[0mid[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m              = 9200
+          [32m+[0m [0m[1m[0mprotocol[0m[0m          = "TCP"
+          [32m+[0m [0m[1m[0msecurity_group_id[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mto_port[0m[0m           = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m    = []
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m    = []
+        }
+    }
+
+[1m  # yandex_vpc_security_group.grafana-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "grafana-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "grafana-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m     = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any outgoing connection"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any ping"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ICMP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow grafana incoming connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = 3000
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "TCP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+    }
+
+[1m  # yandex_vpc_security_group.kibana-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "kibana-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "kibana-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m     = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any outgoing connection"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any ping"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ICMP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow kibana incoming connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = 5601
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "TCP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+    }
+
+[1m  # yandex_vpc_security_group.load-balancer-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "load-balancer-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "load-balancer-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m     = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any outgoing connection"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "Health checks"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow HTTP incoming connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = 80
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "TCP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any ping"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ICMP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+    }
+
+[1m  # yandex_vpc_security_group.private-sg[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_security_group" "private-sg" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m       = "private-sg"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mstatus[0m[0m     = (known after apply)
+
+      [32m+[0m [0megress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any outgoing connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"0.0.0.0/0",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m    = "allow any connection from my subnets"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m      = -1
+          [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m           = -1
+          [32m+[0m [0m[1m[0mprotocol[0m[0m       = "ANY"
+          [32m+[0m [0m[1m[0mto_port[0m[0m        = -1
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+              [32m+[0m [0m"10.1.0.0/16",
+              [32m+[0m [0m"10.2.0.0/16",
+              [32m+[0m [0m"10.3.0.0/16",
+              [32m+[0m [0m"10.4.0.0/16",
+            ]
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = []
+        }
+      [32m+[0m [0mingress {
+          [32m+[0m [0m[1m[0mdescription[0m[0m       = "allow loadbalancer_healthchecks incoming connections"
+          [32m+[0m [0m[1m[0mfrom_port[0m[0m         = 0
+          [32m+[0m [0m[1m[0mid[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mport[0m[0m              = -1
+          [32m+[0m [0m[1m[0mpredefined_target[0m[0m = "loadbalancer_healthchecks"
+          [32m+[0m [0m[1m[0mprotocol[0m[0m          = "TCP"
+          [32m+[0m [0m[1m[0mto_port[0m[0m           = 65535
+          [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m    = []
+          [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m    = []
+        }
+    }
+
+[1m  # yandex_vpc_subnet.private-subnet-1[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_subnet" "private-subnet-1" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m    = "subnet for web-1"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "private-subnet-1"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mroute_table_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+          [32m+[0m [0m"10.1.0.0/16",
+        ]
+      [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m           = "ru-central1-a"
+    }
+
+[1m  # yandex_vpc_subnet.private-subnet-2[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_subnet" "private-subnet-2" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m    = "subnet for web-2"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "private-subnet-2"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mroute_table_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+          [32m+[0m [0m"10.2.0.0/16",
+        ]
+      [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m           = "ru-central1-b"
+    }
+
+[1m  # yandex_vpc_subnet.private-subnet-3[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_subnet" "private-subnet-3" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m    = "subnet for services"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "private-subnet-3"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mroute_table_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+          [32m+[0m [0m"10.3.0.0/16",
+        ]
+      [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m           = "ru-central1-c"
+    }
+
+[1m  # yandex_vpc_subnet.public-subnet[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "yandex_vpc_subnet" "public-subnet" {
+      [32m+[0m [0m[1m[0mcreated_at[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m    = "subnet for bastion"
+      [32m+[0m [0m[1m[0mfolder_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mlabels[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m           = "public-subnet"
+      [32m+[0m [0m[1m[0mnetwork_id[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mv4_cidr_blocks[0m[0m = [
+          [32m+[0m [0m"10.4.0.0/16",
+        ]
+      [32m+[0m [0m[1m[0mv6_cidr_blocks[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mzone[0m[0m           = "ru-central1-c"
+    }
+
+[0m[1mPlan:[0m 30 to add, 0 to change, 0 to destroy.
+[0m[0m
+[1mChanges to Outputs:[0m[0m
+  [32m+[0m [0m[1m[0mbastion_piblic_ip[0m[0m                          = (known after apply)
+  [32m+[0m [0m[1m[0mexternal_ip_addres_load_balancer_piblic_ip[0m[0m = [
+      [32m+[0m [0m{
+          [32m+[0m [0maddress = (known after apply)
+        },
+    ]
+  [32m+[0m [0m[1m[0mgrafana_ip[0m[0m                                 = "10.4.0.11"
+  [32m+[0m [0m[1m[0mgrafana_piblic_ip[0m[0m                          = (known after apply)
+  [32m+[0m [0m[1m[0mkibana_ip[0m[0m                                  = "10.4.0.100"
+  [32m+[0m [0m[1m[0mkibana_piblic_ip[0m[0m                           = (known after apply)
+  [32m+[0m [0m[1m[0mprometheus_private_ip[0m[0m                      = "10.3.0.10"
+  [32m+[0m [0m[1m[0mweb_private_ip[0m[0m                             = [
+      [32m+[0m [0m"10.1.0.10",
+      [32m+[0m [0m"10.2.0.10",
+    ]
+[0m[1m
+Do you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0m
+[0m[1myandex_alb_http_router.router: Creating...[0m[0m
+[0m[1myandex_vpc_network.main-network: Creating...[0m[0m
+[0m[1myandex_vpc_gateway.nat_gateway: Creating...[0m[0m
+[0m[1myandex_alb_http_router.router: Creation complete after 1s [id=ds7pubc7dojpeuiobvpc][0m
+[0m[1myandex_vpc_gateway.nat_gateway: Creation complete after 1s [id=enpkq1t5vmlo9spsgje8][0m
+[0m[1myandex_vpc_network.main-network: Creation complete after 2s [id=enpp6finio3h3etbptmg][0m
+[0m[1myandex_vpc_subnet.public-subnet: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.load-balancer-sg: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.private-sg: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.grafana-sg: Creating...[0m[0m
+[0m[1myandex_vpc_route_table.route_table: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.bastion-sg: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.kibana-sg: Creating...[0m[0m
+[0m[1myandex_vpc_subnet.public-subnet: Creation complete after 1s [id=b0cv9uglo76bm3bpc7ie][0m
+[0m[1myandex_vpc_security_group.kibana-sg: Creation complete after 1s [id=enpi59ght0k20c2802e2][0m
+[0m[1myandex_vpc_route_table.route_table: Creation complete after 2s [id=enphgs3ihqvijlkd18dv][0m
+[0m[1myandex_vpc_subnet.private-subnet-2: Creating...[0m[0m
+[0m[1myandex_vpc_subnet.private-subnet-3: Creating...[0m[0m
+[0m[1myandex_vpc_subnet.private-subnet-1: Creating...[0m[0m
+[0m[1myandex_vpc_subnet.private-subnet-1: Creation complete after 1s [id=e9bsl6qevhtghjnt5us8][0m
+[0m[1myandex_vpc_security_group.bastion-sg: Creation complete after 3s [id=enprq0farodvfu3u5u37][0m
+[0m[1myandex_compute_instance.bastion: Creating...[0m[0m
+[0m[1myandex_vpc_subnet.private-subnet-3: Creation complete after 2s [id=b0cimr4kc8rsulfru3lb][0m
+[0m[1myandex_vpc_security_group.grafana-sg: Creation complete after 4s [id=enpbg9lsa35n0s20maco][0m
+[0m[1myandex_vpc_subnet.private-subnet-2: Creation complete after 2s [id=e2lt2680bgi6q5aiqn42][0m
+[0m[1myandex_alb_target_group.tg-group: Creating...[0m[0m
+[0m[1myandex_alb_target_group.tg-group: Creation complete after 1s [id=ds7d3acd36gtlpj3ehqe][0m
+[0m[1myandex_alb_backend_group.backend-group: Creating...[0m[0m
+[0m[1myandex_alb_backend_group.backend-group: Creation complete after 0s [id=ds7og812kqcrjk586peu][0m
+[0m[1myandex_alb_virtual_host.router-host: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.private-sg: Creation complete after 6s [id=enp01j1vg1clpc9nj2jl][0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Creating...[0m[0m
+[0m[1myandex_compute_instance.kibana: Creating...[0m[0m
+[0m[1myandex_compute_instance.web-servers["web-2"]: Creating...[0m[0m
+[0m[1myandex_compute_instance.prometheus: Creating...[0m[0m
+[0m[1myandex_compute_instance.grafana: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.elasticsearch-sg: Creating...[0m[0m
+[0m[1myandex_alb_virtual_host.router-host: Creation complete after 1s [id=ds7pubc7dojpeuiobvpc/router-host][0m
+[0m[1myandex_vpc_security_group.load-balancer-sg: Creation complete after 7s [id=enp1q73cs9phgvga75ru][0m
+[0m[1myandex_alb_load_balancer.load-balancer: Creating...[0m[0m
+[0m[1myandex_vpc_security_group.elasticsearch-sg: Creation complete after 3s [id=enpvt1kglnjcmgjf41ke][0m
+[0m[1myandex_compute_instance.elasticsearch: Creating...[0m[0m
+[0m[1myandex_compute_instance.bastion: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.kibana: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-2"]: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.grafana: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.prometheus: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.elasticsearch: Still creating... [10s elapsed][0m[0m
+[0m[1myandex_compute_instance.bastion: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.kibana: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-2"]: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.prometheus: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.grafana: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.elasticsearch: Still creating... [20s elapsed][0m[0m
+[0m[1myandex_compute_instance.prometheus: Creation complete after 23s [id=ef3f5rfocroci93kpu7s][0m
+[0m[1myandex_compute_instance.bastion: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-2"]: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.kibana: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.grafana: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-2"]: Creation complete after 30s [id=epd5k3krufffg1g6cdli][0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.bastion: Creation complete after 35s [id=ef3i7d5lrm3jf9oretse][0m
+[0m[1myandex_compute_instance.elasticsearch: Still creating... [30s elapsed][0m[0m
+[0m[1myandex_compute_instance.grafana: Creation complete after 34s [id=ef3al7edu25frvhhk4nu][0m
+[0m[1myandex_compute_instance.kibana: Creation complete after 35s [id=ef3010vm6rustckteqt7][0m
+[0m[1mlocal_file.nginx: Creating...[0m[0m
+[0m[1mlocal_file.nginx: Creation complete after 0s [id=2c228e42a620202e8ee0adc9257cd3193f61037a][0m
+[0m[1myandex_compute_instance.elasticsearch: Creation complete after 36s [id=ef3kkglbnh9295v8645i][0m
+[0m[1myandex_compute_snapshot_schedule.snapshot: Creating...[0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [40s elapsed][0m[0m
+[0m[1myandex_compute_snapshot_schedule.snapshot: Creation complete after 4s [id=fd86urv7futbv1sfl1vu][0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [50s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Still creating... [1m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m0s elapsed][0m[0m
+[0m[1myandex_compute_instance.web-servers["web-1"]: Creation complete after 1m3s [id=fhm1ukosqmhss6mn6h4f][0m
+[0m[1myandex_compute_snapshot_schedule.snapshot2["web-1"]: Creating...[0m[0m
+[0m[1myandex_compute_snapshot_schedule.snapshot2["web-2"]: Creating...[0m[0m
+[0m[1mlocal_file.hosts: Creating...[0m[0m
+[0m[1mlocal_file.hosts: Creation complete after 0s [id=b1ba14fc40c540fa2edd6ea79233c8f476ddcacc][0m
+[0m[1myandex_compute_snapshot_schedule.snapshot2["web-1"]: Creation complete after 2s [id=fd8e2fsaikcttqf4c2na][0m
+[0m[1myandex_compute_snapshot_schedule.snapshot2["web-2"]: Creation complete after 5s [id=fd8stq8qmpl1dho7fteh][0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m30s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [1m50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m30s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [2m50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m30s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [3m50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m30s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [4m50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m10s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m20s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m30s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m40s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [5m50s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Still creating... [6m0s elapsed][0m[0m
+[0m[1myandex_alb_load_balancer.load-balancer: Creation complete after 6m8s [id=ds77crq0gnep46sf8ug8][0m
+[0m[1m[32m
+Apply complete! Resources: 30 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mbastion_piblic_ip = "51.250.44.226"
+external_ip_addres_load_balancer_piblic_ip = tolist([
+  {
+    "address" = "51.250.83.10"
+  },
+])
+grafana_ip = "10.4.0.11"
+grafana_piblic_ip = "51.250.37.140"
+kibana_ip = "10.4.0.100"
+kibana_piblic_ip = "51.250.47.218"
+prometheus_private_ip = "10.3.0.10"
+web_private_ip = [
+  "10.1.0.10",
+  "10.2.0.10",
+]

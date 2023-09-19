@@ -2,16 +2,16 @@
 
 resource "yandex_alb_target_group" "tg-group" {
   name = "tg-group"
+  
+  dynamic "target" {
+    for_each = local.web-servers
+    content {
+      ip_address = target.value.ip_address
+      subnet_id  = target.value.subnet_id
 
-  target {
-    ip_address = yandex_compute_instance.web-1.network_interface.0.ip_address
-    subnet_id  = yandex_vpc_subnet.private-subnet-1.id
+    }
   }
-
-  target {
-    ip_address = yandex_compute_instance.web-2.network_interface.0.ip_address
-    subnet_id  = yandex_vpc_subnet.private-subnet-2.id
-  }
+  
 }
 
 ###    Backend Group    ###
@@ -75,7 +75,6 @@ resource "yandex_vpc_security_group" "load-balancer-sg" {
     protocol          = "ANY"
     description       = "Health checks"
     v4_cidr_blocks    = ["0.0.0.0/0"]
-    predefined_target = "loadbalancer_healthchecks"
   }
 
   ingress {

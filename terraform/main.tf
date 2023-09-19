@@ -10,10 +10,6 @@ terraform {
 
 provider "yandex" {
   token     = var.OAuthTocken
-  cloud_id  = "b1gob4asoo1qa32tbt9b"
-  folder_id = "b1gob4asoo1qa32tbt9b"
-}
-
-data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
+  cloud_id  = var.cloud_id
+  folder_id = var.cloud_id
 }
