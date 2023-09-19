@@ -21,12 +21,6 @@
   apt:
     deb: /home/user/filebeat-8.6.2-amd64.deb 
 
-- name: Systemctl daemon reload
-  systemd:
-    daemon_reload: true
-    name: filebeat.service
-    state: started
-
 - name: Copy config file for filebeat
   template:
     src: ../templates/filebeat.yml.j2
@@ -34,6 +28,18 @@
     mode: 0600
     owner: root
     group: root
+
+
+- name: Systemctl daemon reload
+  systemd:
+    daemon_reload: true
+    name: filebeat.service
+    state: started
+
+- name: restarted nginx    
+  service:
+    name: nginx
+    state: restarted
 
 - name: Systemctl enable  filebeat
   systemd:
