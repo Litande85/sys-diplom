@@ -50,11 +50,18 @@
 
 Для развёртки инфраструктуры использован [Terraform](terraform). 
 
+```bash
+terraform apply
+```
+
 ![outputs](img/outputs.png)
 
 Для установки сервисов использован [Ansible](ansible).
 
 inventory-файл [ansible/hosts](ansible/hosts)  сгенерирован прямо из terraform, c  помощью ресурса local_file [terraform/local_files.tf](terraform/local_files.tf) и  шаблона inventory-файла [hosts.tpl](terraform/templates/hosts.tpl).
+
+
+ansible-playbook [playbook.yml](ansible/playbook.yml)
 
 История установки сохранена в тестовых файлах [tests](tests).
 
