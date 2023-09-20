@@ -84,7 +84,7 @@ locals {
 }
 ```
 
-После этого в одном ресурсе yandex_compute_instance [web-servers.tf](terraform/web-servers.tf) использован цикл for_each.
+После этого, чтобы не описывать несколько похожих ресурсов, в одном ресурсе yandex_compute_instance [web-servers.tf](terraform/web-servers.tf) использован цикл `for_each`.
 
 id образа вынесен в переменную [variables.tf](terraform/variables.tf) и использован конкретный id - fd81ojtctf7kjqa3au3i - Debian 11.
 
