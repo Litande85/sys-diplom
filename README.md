@@ -524,7 +524,7 @@ resource "yandex_compute_snapshot_schedule" "snapshot2" {
 - <a href = "https://developer.hashicorp.com/terraform/language/functions/templatefile" target="_blank">templatefile Function</a>
 - <a href = "https://stackoverflow.com/questions/45489534/best-way-currently-to-create-an-ansible-inventory-from-terraform" target="_blank">Best way currently to create an ansible inventory from terraform</a>
 - <a href = "https://stackoverflow.com/questions/66716192/create-inventory-file-from-terraform-when-for-each-is-used" target="_blank">Create Inventory File from Terraform when for_each is used</a>
-- - <a href = "https://stackoverflow.com/questions/23656458/elasticsearch-what-to-do-with-unassigned-shards" target="_blank">elasticsearch - what to do with unassigned shards</a>
+- <a href = "https://stackoverflow.com/questions/23656458/elasticsearch-what-to-do-with-unassigned-shards" target="_blank">elasticsearch - what to do with unassigned shards</a>
 - <a href = "https://yandex.ru/video/preview/17910479584929116863" target="_blank">Filebeat with Elasticsearch 8.x - Part 1: Install and Secure</a>
  
 
