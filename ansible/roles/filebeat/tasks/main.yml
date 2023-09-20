@@ -41,7 +41,12 @@
     name: nginx
     state: restarted
 
-- name: Systemctl enable  filebeat
+- name: restarted  filebeat
   systemd:
     name: filebeat.service
     state: restarted
+
+- name: Enable filebeat.service, and not touch the state
+  ansible.builtin.service:
+    name: filebeat.service
+    enabled: yes
