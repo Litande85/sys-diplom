@@ -139,7 +139,7 @@ resource "yandex_compute_instance" "web-servers" {
 
 ![webservices](img/webservices.png)
 
-Использован  файл для сайта [index.html](ansible/roles/geerlingguy.nginx/files/index.html), сгенерирован автоматически из terraform, c  помощью ресурса local_file [terraform/local_files.tf](terraform/local_files.tf) и  шаблона  [index.tpl](terraform/templates/index.tpl).
+Использован  файл для сайта [index.html](ansible/roles/geerlingguy.nginx/files/index.html), сгенерирован c подстановкой ip адресов автоматически из terraform, c  помощью ресурса local_file [terraform/local_files.tf](terraform/local_files.tf) и  шаблона  [index.tpl](terraform/templates/index.tpl).
 
 
 Созданы Target Group, Backend Group [groups.tf](terraform/groups.tf).
@@ -333,7 +333,7 @@ Grafana ставится автоматически при помощи [ansible
 Метрики доступны по публичному IP сервера grafana:
 ### <a href = "http://51.250.37.140:3000" target="_blank">http://51.250.37.140:3000</a>
 
-Логин `admin`, пароль `12345`.
+### Логин `admin`, пароль `12345`.
 
 ![grafana](img/grafana.png)
 
