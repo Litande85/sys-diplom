@@ -68,6 +68,10 @@ ansible-playbook [playbook.yml](ansible/playbook.yml)
 История установки сохранена в тестовых файлах [tests](tests).
 
 ### <a name = "Сайт"> Сайт </a>
+
+### <a href = "http://51.250.83.10/" target="_blank">http://51.250.83.10/</a>
+
+
 Создайно две ВМ в разных зонах посредством [Terraform](terraform): [web-servers.tf](terraform/web-servers.tf). 
 Поскольку это похожие ресурсы, то  в переменных [variables.tf](terraform/variables.tf)  создан map, ключом в котором является имя сервера, а значения  содержет зону, подсеть, IP-адрес:
 
@@ -128,10 +132,10 @@ resource "yandex_compute_instance" "web-servers" {
 ОС и содержимое ВМ идентично.
 
 На них установлены c помощью playbook ansible  [web-playbook.yml](ansible/web-playbook.yml):
-    - nginx 1.18.0 с использованием роли [geerlingguy.nginx](ansible/roles/geerlingguy.nginx)
-    - [node_exporter](ansible/roles/node_exporter)
-    - [nginx-exporter](ansible/roles/nginx-exporter) 
-    - [filebeat](ansible/roles/filebeat)
+- nginx 1.18.0 с использованием роли [geerlingguy.nginx](ansible/roles/geerlingguy.nginx)
+- [node_exporter](ansible/roles/node_exporter)
+- [nginx-exporter](ansible/roles/nginx-exporter) 
+- [filebeat](ansible/roles/filebeat)
 
 
 ![web1](img/nginx11.png)
