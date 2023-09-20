@@ -178,7 +178,48 @@ resource "yandex_alb_target_group" "tg-group" {
 
 ### <a href = "http://51.250.83.10/" target="_blank">http://51.250.83.10/</a>
 
-![web](<img/web 2023-06-18 001320.png>)
+![web](<img/web.png>)
+
+Cайт протестирован 'curl -v 51.250.83.10:80'
+
+output
+```
+> curl -v 51.250.83.10:80
+ПОДРОБНО: GET http://51.250.83.10/ with 0-byte payload
+ПОДРОБНО: received 2557-byte response of content type text/html
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : <!doctype html>
+                    <html>
+                    <head>
+                        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                        <title>sys-diplom-makhota</title>
+
+                        <style ty...
+RawContent        : HTTP/1.1 200 OK
+                    Accept-Ranges: bytes
+                    Content-Length: 2557
+                    Content-Type: text/html
+                    Date: Wed, 20 Sep 2023 19:08:54 GMT
+                    ETag: "650b3b0c-9fd"
+                    Last-Modified: Wed, 20 Sep 2023 18:33:48 GMT
+                    Server: y...
+Forms             : {}
+Headers           : {[Accept-Ranges, bytes], [Content-Length, 2557], [Content-Type, text/html], [Date, Wed, 20 Sep 2023 19:08:54 GMT]... 
+                    }
+Images            : {}
+InputFields       : {}
+Links             : {@{innerHTML=Grafana; innerText=Grafana; outerHTML=<a class="btn btn-white btn-animated" href="http://51.250.37.140: 
+                    3000/" target="_blank">Grafana</a>; outerText=Grafana; tagName=A; class=btn btn-white btn-animated; href=http://51.2 
+                    50.37.140:3000/; target=_blank}, @{innerHTML=Kibana; innerText=Kibana; outerHTML=<a class="btn btn-white btn-animate 
+                    d" href="http://51.250.47.218:5601/app/discover" target="_blank">Kibana</a>; outerText=Kibana; tagName=A; class=btn  
+                    btn-white btn-animated; href=http://51.250.47.218:5601/app/discover; target=_blank}}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 2557
+```
 
 
 ### <a name = "Мониторинг"> Мониторинг </a>
