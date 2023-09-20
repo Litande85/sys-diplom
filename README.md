@@ -180,7 +180,7 @@ resource "yandex_alb_target_group" "tg-group" {
 
 ![web](<img/web.png>)
 
-Cайт протестирован 'curl -v 51.250.83.10:80'
+Cайт протестирован `curl -v 51.250.83.10:80`
 
 output
 ```
@@ -224,7 +224,7 @@ RawContentLength  : 2557
 
 ### <a name = "Мониторинг"> Мониторинг </a>
 
-Prometheus ставится автоматически при помощи [ansible/prometheus-playbook.yml](ansible/prometheus-playbook.yml) с использованием роли [ansible/roles/prometheus](ansible/roles/prometheus)  и переменных, через которые добавлены jobs для 
+Prometheus установлен автоматически при помощи [ansible/prometheus-playbook.yml](ansible/prometheus-playbook.yml) с использованием роли [ansible/roles/prometheus](ansible/roles/prometheus)  и переменных, через которые добавлены jobs и targets для 
 node-exporter и ngnginx-exporter:
 
 ```yml
@@ -266,13 +266,13 @@ node-exporter и ngnginx-exporter:
 ```
 
 
-node-exporter установлен на все вм с помощью роли [ansible/roles/node_exporter](ansible/roles/node_exporter) - # # https://github.com/prometheus-community/ansible/tree/main/roles/node_exporter.
+node-exporter установлен на все вм с помощью роли [ansible/roles/node_exporter](ansible/roles/node_exporter) - # https://github.com/prometheus-community/ansible/tree/main/roles/node_exporter.
 
 
-nginx-exporter установлен на web-servers  при помощи роли [ansible/roles/nginx-exporter](ansible/roles/nginx-exporter) - # https://github.com/martin-helmich/prometheus-nginxlog-exporter.
+nginx-exporter установлен на [web-servers](ansible/web-playbook.yml)  при помощи роли [ansible/roles/nginx-exporter](ansible/roles/nginx-exporter) - # https://github.com/martin-helmich/prometheus-nginxlog-exporter.
 
 
-Grafana ставится автоматически при помощи [ansible/grafana-playbook.yml](ansible/grafana-playbook.yml) с использованием роли [ansible/roles/cloudalchemy.grafana](ansible/roles/cloudalchemy.grafana)  и переменных, через которые добавлены нужные дашборды и алерты:
+Grafana ставится автоматически при помощи [ansible/grafana-playbook.yml](ansible/grafana-playbook.yml) с использованием роли [ansible/roles/cloudalchemy.grafana](ansible/roles/cloudalchemy.grafana)  и переменных, через которые добавлены нужные дашборды и алерты, логин и пароль:
 
 ```yml
 ---
