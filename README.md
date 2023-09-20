@@ -353,13 +353,13 @@ Elasticsearch, kibana-playbook и filebeats установлены автома�
 
 https://mirror.yandex.ru/mirrors/elastic/8/pool/main/
 
-Сконфигурировано соединение `kibana` c `elasticsearch` посредством передачи шаблона `kibana.yml`` через ansible:
+Сконфигурировано соединение `kibana` c `elasticsearch` посредством передачи шаблона `kibana.yml`` через ansible [kibana-playbook.yml](ansible/kibana-playbook.yml):
 
 [kibana.yml.j2](ansible/roles/kibana/templates/kibana.yml.j2)
 
 ![kibanaconf](img/kibanaconf.png)
 
-Настроена доставка логов `nginx` в `elasticsearch` посредством передачи шаблона `filebeat.yml` через ansible:
+Настроена доставка логов `nginx` в `elasticsearch` посредством передачи шаблона `filebeat.yml` через ansible [web-playbook.yml](ansible/web-playbook.yml):
 
 [filebeat.yml.j2](ansible/roles/filebeat/templates/filebeat.yml.j2)
 
