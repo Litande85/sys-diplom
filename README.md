@@ -137,10 +137,7 @@ resource "yandex_compute_instance" "web-servers" {
 - [nginx-exporter](ansible/roles/nginx-exporter) 
 - [filebeat](ansible/roles/filebeat)
 
-
-![web1](img/nginx11.png)
-
-![web2](img/nginx1.png)
+![webservices](img/webservices.png)
 
 Использован  файл для сайта [index.html](ansible/roles/geerlingguy.nginx/files/index.html), сгенерирован автоматически из terraform, c  помощью ресурса local_file [terraform/local_files.tf](terraform/local_files.tf) и  шаблона  [index.tpl](terraform/templates/index.tpl).
 
