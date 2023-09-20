@@ -483,6 +483,9 @@ resource "yandex_compute_snapshot_schedule" "snapshot2" {
 
 ![snapshots_all](img/snapshots_all.png)
 
+![snapshots_web1](img/snapshots_web1.png)
+
+![napshots_web2](img/snapshots_web2.png)
 
 ### <a name = "Использованные-источники"> Использованные источники </a>
 
