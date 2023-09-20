@@ -337,9 +337,8 @@ Grafana ставится автоматически при помощи [ansible
 
 ![grafana](img/grafana.png)
 
-![metric](<img/Dashboard 2023-06-18 123717.png>)
+![metric](img/Dashboardnginx.png)
 
-![nginx-log](<img/nginx-log 2023-06-18 040317.png>)
 
 ### <a name = "Логи"> Логи </a>
 
