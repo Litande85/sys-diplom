@@ -353,6 +353,8 @@ Elasticsearch, kibana-playbook и filebeats установлены автома�
 
 https://mirror.yandex.ru/mirrors/elastic/8/pool/main/
 
+![elasticsearch_health](img/elasticsearch_health.png)
+
 Сконфигурировано соединение `kibana` c `elasticsearch` посредством передачи шаблона `kibana.yml`` через ansible [kibana-playbook.yml](ansible/kibana-playbook.yml):
 
 [kibana.yml.j2](ansible/roles/kibana/templates/kibana.yml.j2)
@@ -384,9 +386,12 @@ output.elasticsearch:
 
 ```
 
+![filebeat](img/filebeat.png)
+
 Логи подтянулись автоматически и доступны по публичному IP сервера kibana:
 ### <a href = "http://51.250.47.218:5601/app/discover" target="_blank">http://51.250.47.218:5601</a>
 
+![kibana_discover_filebeat](img/kibana_discover_filebeat.png)
 
 
 ### <a name = "Сеть"> Сеть </a>
@@ -401,7 +406,7 @@ output.elasticsearch:
 Настроена Security Groups [groups.tf](terraform/groups.tf) соответствующих сервисов на входящий трафик только к нужным портам.
 
 
-Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.41.10, в которой  открыт только один порт — ssh. 
+Настроена ВМ [bastion.tf](terraform/bastion.tf) с публичным адресом 51.250.44.226, в которой  открыт только один порт — ssh. 
 Настроены все security groups на разрешение входящего ssh из этой security group. 
 Эта вм  реализует концепцию bastion host. 
 Можно  подключаться по ssh ко всем хостам через этот хост.
@@ -409,11 +414,11 @@ output.elasticsearch:
 Пример - доступ через бастион к web-1:
 
 ```bash
-ssh -i ~/.ssh/id_rsa -J user@51.250.44.226 user@10.1.0.10
+ssh -i ~/.ssh/id_rsa -J 51.250.44.226 user@10.1.0.10
 
 ```
 
-![ssh_bastion](<img/img 2023-06-17 190010.png>)
+![ssh_bastion](img/ssh_bastion.png)
 
 В [hosts](ansible/hosts) ansible указано специальное правило подключения к хостам через bastion host:
 
@@ -442,7 +447,7 @@ resource "yandex_vpc_route_table" "route_table" {
 }
 ```
 
-![gateway](<img/gate 2023-06-18 002628.png>)
+![gateway](<img/gate.png>)
 
 
 ### <a name = "Резервное-копирование"> Резервное копирование </a>
