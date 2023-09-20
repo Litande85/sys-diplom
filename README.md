@@ -63,6 +63,8 @@ inventory-файл [ansible/hosts](ansible/hosts)  сгенерирован пр
 
 ansible-playbook [playbook.yml](ansible/playbook.yml)
 
+![ansibleresult](img/ansibleresult.png)
+
 История установки сохранена в тестовых файлах [tests](tests).
 
 ### <a name = "Сайт"> Сайт </a>
@@ -307,7 +309,7 @@ Elasticsearch, kibana-playbook и filebeats ставятся автоматич�
 https://mirror.yandex.ru/mirrors/elastic/8/pool/main/
 
 Логи подтянулись автоматически и доступны по публичному IP сервера kibana:
-### <a href = "http://51.250.47.218:5601" target="_blank">http://51.250.47.218:5601</a>
+### <a href = "http://51.250.47.218:5601/app/discover" target="_blank">http://51.250.47.218:5601</a>
 
 ```yml
 - type: filestream
