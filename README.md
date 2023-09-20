@@ -343,23 +343,51 @@ Grafana ставится автоматически при помощи [ansible
 ### <a name = "Логи"> Логи </a>
 
 
-Elasticsearch, kibana-playbook и filebeats ставятся автоматически через ansible плейбуки и роли с использованием шаблонов.
+Elasticsearch, kibana-playbook и filebeats установлены автоматически через ansible плейбуки и роли с использованием шаблонов:
+
+- [ansible/elasticsearch-playbook.yml](ansible/elasticsearch-playbook.yml)
+- [ansible/kibana-playbook.yml](ansible/kibana-playbook.yml)
+- [ansible/roles/filebeat](ansible/roles/filebeat)
 
 Бинарные файлы для установки скачиваются с зеркала Яндекс:
 
 https://mirror.yandex.ru/mirrors/elastic/8/pool/main/
 
-Логи подтянулись автоматически и доступны по публичному IP сервера kibana:
-### <a href = "http://51.250.47.218:5601/app/discover" target="_blank">http://51.250.47.218:5601</a>
+Сконфигурировано соединение `kibana` c `elasticsearch` посредством передачи шаблона `kibana.yml`` через ansible:
+
+[kibana.yml.j2](ansible/roles/kibana/templates/kibana.yml.j2)
+
+![kibanaconf](img/kibanaconf.png)
+
+Настроена доставка логов `nginx` в `elasticsearch` посредством передачи шаблона `filebeat.yml` через ansible:
+
+[filebeat.yml.j2](ansible/roles/filebeat/templates/filebeat.yml.j2)
 
 ```yml
+...
+
+filebeat.inputs:
 - type: filestream
   id: my-filestream-id
   enabled: true
   paths:
     - /var/log/nginx/access.log
     - /var/log/nginx/error.log
+
+setup.kibana:
+  host: "http://10.4.0.100:5601"
+
+output.elasticsearch:
+  hosts: ["10.3.0.100:9200"]
+
+...
+
 ```
+
+Логи подтянулись автоматически и доступны по публичному IP сервера kibana:
+### <a href = "http://51.250.47.218:5601/app/discover" target="_blank">http://51.250.47.218:5601</a>
+
+
 
 ### <a name = "Сеть"> Сеть </a>
 Развернута VPC.
